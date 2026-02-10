@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shikhar Tiwari - Portfolio</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            background-attachment: fixed;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .glass-card-hover:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(99, 102, 241, 0.5);
+            transform: translateY(-4px);
+        }
+        
+        .repo-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .repo-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+        }
+        
+        .glow-effect {
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+        }
+        
+        .spinner {
+            border: 3px solid rgba(99, 102, 241, 0.1);
+            border-top-color: #6366f1;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .gradient-border {
+            position: relative;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+        }
+        
+        .gradient-border::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 16px;
+            padding: 2px;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .gradient-border:hover::before {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="min-h-screen text-white">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 glass-card border-b border-white/10">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="text-xl font-bold gradient-text">ST</div>
+                <div class="flex gap-6">
+                    <a href="#tech" class="text-gray-300 hover:text-white transition-colors">Tech Stack</a>
+                    <a href="#experience" class="text-gray-300 hover:text-white transition-colors">Experience</a>
+                    <a href="#repos" class="text-gray-300 hover:text-white transition-colors">Projects</a>
+                    <a href="#work" class="text-gray-300 hover:text-white transition-colors">Current Work</a>
+                    <a href="#featured" class="text-gray-300 hover:text-white transition-colors">Featured</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-20 px-6">
+        <div class="container mx-auto max-w-4xl text-center" data-aos="fade-up">
+            <div class="mb-8">
+                <div class="w-32 h-32 mx-auto rounded-full bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 p-1 glow-effect">
+                    <div class="w-full h-full rounded-full bg-gray-900 flex items-center justify-center text-5xl">
+                        👋
+                    </div>
+                </div>
+            </div>
+            
+            <h1 class="text-6xl md:text-7xl font-bold mb-6">
+                <span class="gradient-text">Shikhar Tiwari</span>
+            </h1>
+            
+            <p class="text-2xl md:text-3xl text-gray-300 mb-4 font-medium">
+                Senior Software Engineer
+            </p>
+            
+            <p class="text-lg text-gray-400 mb-4 max-w-2xl mx-auto">
+                7+ years building distributed backend and full-stack systems, including AI-powered retrieval, personalization, and recommendation platforms
+            </p>
+            
+            <p class="text-sm text-gray-500 mb-12">
+                New York, NY | (201) 349-6989
+            </p>
+            
+            <div class="flex gap-4 justify-center flex-wrap" data-aos="fade-up" data-aos-delay="200">
+                <a href="mailto:shikhar.tiwari1996@gmail.com" 
+                   target="_blank" 
+                   rel="noopener"
+                   class="glass-card px-6 py-3 rounded-xl flex items-center gap-2 hover:bg-white/10 transition-all group">
+                    <i data-lucide="mail" class="w-5 h-5"></i>
+                    <span>Email</span>
+                </a>
+                <a href="https://www.linkedin.com/in/shikhar-tiwari-4a9ba7142/" 
+                   target="_blank" 
+                   rel="noopener"
+                   class="glass-card px-6 py-3 rounded-xl flex items-center gap-2 hover:bg-white/10 transition-all group">
+                    <i data-lucide="linkedin" class="w-5 h-5"></i>
+                    <span>LinkedIn</span>
+                </a>
+                <a href="https://github.com/shkrwnd" 
+                   target="_blank" 
+                   rel="noopener"
+                   class="glass-card px-6 py-3 rounded-xl flex items-center gap-2 hover:bg-white/10 transition-all group">
+                    <i data-lucide="github" class="w-5 h-5"></i>
+                    <span>GitHub</span>
+                </a>
+                <a href="https://leetcode.com/u/shkrwnd" 
+                   target="_blank" 
+                   rel="noopener"
+                   class="glass-card px-6 py-3 rounded-xl flex items-center gap-2 hover:bg-white/10 transition-all group">
+                    <i data-lucide="code" class="w-5 h-5"></i>
+                    <span>LeetCode</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack Section -->
+    <section id="tech" class="py-12 px-6">
+        <div class="container mx-auto max-w-6xl">
+            <div class="text-center mb-8" data-aos="fade-up">
+                <h2 class="text-3xl md:text-4xl font-bold mb-2">
+                    <span class="gradient-text">Tech Stack</span>
+                </h2>
+                <p class="text-gray-400 text-sm">Technologies and tools I work with</p>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3" data-aos="fade-up" data-aos-delay="100">
+                <!-- Languages -->
+                <div class="glass-card rounded-xl p-4 hover:bg-white/5 transition-all">
+                    <div class="flex items-center gap-2 mb-3">
+                        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center">
+                            <i data-lucide="code" class="w-4 h-4 text-white"></i>
+                        </div>
+                        <h3 class="text-sm font-bold text-white">Languages</h3>
+                    </div>
+                    <div class="flex flex-wrap gap-1.5">
+                        <span class="px-2 py-1 rounded text-xs font-medium bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">Python</span>
+                        <span class="px-2 py-1 rounded text-xs font-medium bg-orange-500/20 text-orange-300 border border-orange-500/30">Java</span>
+                        <span class="px-2 py-1 rounded text-xs font-medium bg-blue-500/20 text-blue-300 border border-blue-500/30">TypeScript</span>
+                        <span class="px-2 py-1 rounded text-xs font-medium bg-yellow-500/20 text-yellow-300 border border-yellow-500/30">JavaScript</span>
+                    </div>
+                </div>
+                
+                <!-- Frontend -->
+                <div class="glass-card rounded-xl p-4 hover:bg-white/5 transition-all">
+                    <div class="flex items-center gap-2 mb-3">
+                        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
+                            <i data-lucide="layout" class="w-4 h-4 text-white"></i>
+                        </div>
+                        <h3 class="text-sm font-bold text-white">Frontend</h3>
+                    </div>
+                    <div class="flex flex-wrap gap-1.5">
+                        <span class="px-2 py-1 rounded text-xs font-medium bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">React</span>
+                        <span class="px-2 py-1 rounded text-xs font-medium bg-red-500/20 text-red-300 border border-red-500/30">Angular</span>
+                    </div>
+                </div>
+                
+                <!-- Backend -->
+                <div class="glass-card rounded-xl p-4 hover:bg-white/5 transition-all">
+                    <div class="flex items-center gap-2 mb-3">
+                        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-pink-500 to-red-500 flex items-center justify-center">
+                            <i data-lucide="server" class="w-4 h-4 text-white"></i>
+                        </div>
+                        <h3 class="text-sm font-bold text-white">Backend</h3>
+                    </div>
+                    <div class="flex flex-wrap gap-1.5">
+                        <span class="px-2 py-1 rounded text-xs font-medium bg-green-500/20 text-green-300 border border-green-500/30">FastAPI</span>
+                        <span class="px-2 py-1 rounded text-xs font-medium bg-orange-500/20 text-orange-300 border border-orange-500/30">Spring Boot</span>
+                        <span class="px-2 py-1 rounded text-xs font-medium bg-green-500/20 text-green-300 border border-green-500/30">Node.js</span>
+                        <span class="px-2 py-1 rounded text-xs font-medium bg-red-500/20 text-red-300 border border-red-500/30">Rails</span>
+                        <span class="px-2 py-1 rounded text-xs font-medium bg-red-500/20 text-red-300 border border-red-500/30">Laravel</span>
+                    </div>
+                </div>
+                
+                <!-- Data & Messaging -->
+                <div class="glass-card rounded-xl p-4 hover:bg-white/5 transition-all">
+                    <div class="flex items-center gap-2 mb-3">
+                        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center">
+                            <i data-lucide="database" class="w-4 h-4 text-white"></i>
+                        </div>
+                        <h3 class="text-sm font-bold text-white">Data</h3>
+                    </div>
+                    <div class="flex flex-wrap gap-1.5">
+                        <span class="px-2 py-1 rounded text-xs font-medium bg-blue-500/20 text-blue-300 border border-blue-500/30">PostgreSQL</span>
+                        <span class="px-2 py-1 rounded text-xs font-medium bg-green-500/20 text-green-300 border border-green-500/30">MongoDB</span>
+                        <span class="px-2 py-1 rounded text-xs font-medium bg-red-500/20 text-red-300 border border-red-500/30">Redis</span>
+                        <span class="px-2 py-1 rounded text-xs font-medium bg-orange-500/20 text-orange-300 border border-orange-500/30">Kafka</span>
+                        <span class="px-2 py-1 rounded text-xs font-medium bg-yellow-500/20 text-yellow-300 border border-yellow-500/30">Elasticsearch</span>
+                        <span class="px-2 py-1 rounded text-xs font-medium bg-blue-500/20 text-blue-300 border border-blue-500/30">Neo4j</span>
+                        <span class="px-2 py-1 rounded text-xs font-medium bg-purple-500/20 text-purple-300 border border-purple-500/30">Milvus</span>
+                    </div>
+                </div>
+                
+                <!-- Cloud & AI -->
+                <div class="glass-card rounded-xl p-4 hover:bg-white/5 transition-all">
+                    <div class="flex items-center gap-2 mb-3">
+                        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-500 to-teal-500 flex items-center justify-center">
+                            <i data-lucide="cloud" class="w-4 h-4 text-white"></i>
+                        </div>
+                        <h3 class="text-sm font-bold text-white">Cloud & AI</h3>
+                    </div>
+                    <div class="flex flex-wrap gap-1.5">
+                        <span class="px-2 py-1 rounded text-xs font-medium bg-orange-500/20 text-orange-300 border border-orange-500/30">AWS</span>
+                        <span class="px-2 py-1 rounded text-xs font-medium bg-blue-500/20 text-blue-300 border border-blue-500/30">GCP</span>
+                        <span class="px-2 py-1 rounded text-xs font-medium bg-blue-500/20 text-blue-300 border border-blue-500/30">Azure</span>
+                        <span class="px-2 py-1 rounded text-xs font-medium bg-blue-500/20 text-blue-300 border border-blue-500/30">Docker</span>
+                        <span class="px-2 py-1 rounded text-xs font-medium bg-blue-500/20 text-blue-300 border border-blue-500/30">K8s</span>
+                        <span class="px-2 py-1 rounded text-xs font-medium bg-orange-500/20 text-orange-300 border border-orange-500/30">PyTorch</span>
+                        <span class="px-2 py-1 rounded text-xs font-medium bg-orange-500/20 text-orange-300 border border-orange-500/30">TensorFlow</span>
+                        <span class="px-2 py-1 rounded text-xs font-medium bg-purple-500/20 text-purple-300 border border-purple-500/30">RAG</span>
+                    </div>
+                </div>
+                
+                <!-- Certifications -->
+                <div class="glass-card rounded-xl p-4 hover:bg-white/5 transition-all">
+                    <div class="flex items-center gap-2 mb-3">
+                        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-teal-500 to-green-500 flex items-center justify-center">
+                            <i data-lucide="award" class="w-4 h-4 text-white"></i>
+                        </div>
+                        <h3 class="text-sm font-bold text-white">Certs</h3>
+                    </div>
+                    <div class="flex flex-wrap gap-1.5">
+                        <span class="px-2 py-1 rounded text-xs font-medium bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">DL Nanodegree</span>
+                        <span class="px-2 py-1 rounded text-xs font-medium bg-green-500/20 text-green-300 border border-green-500/30">Android Dev</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Professional Experience Section -->
+    <section id="experience" class="py-20 px-6">
+        <div class="container mx-auto max-w-6xl">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">
+                    <span class="gradient-text">Professional Experience</span>
+                </h2>
+                <p class="text-gray-400 text-lg">7+ years of building production systems</p>
+            </div>
+            
+            <div class="space-y-6" data-aos="fade-up" data-aos-delay="100">
+                <!-- Experience 1: Walmart Global Tech -->
+                <div class="glass-card rounded-2xl p-8 hover:bg-white/5 transition-all border-l-4 border-indigo-500">
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center flex-shrink-0">
+                            <i data-lucide="briefcase" class="w-6 h-6 text-white"></i>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex items-start justify-between mb-3 flex-wrap gap-2">
+                                <div>
+                                    <h3 class="text-xl font-bold text-white mb-1">Software Developer 3</h3>
+                                    <p class="text-indigo-400 font-medium mb-2">Walmart Global Tech</p>
+                                </div>
+                                <span class="text-gray-400 text-sm">Aug 2023 - Dec 2024</span>
+                            </div>
+                            <ul class="space-y-2 text-gray-300">
+                                <li class="flex items-start gap-2">
+                                    <span class="text-indigo-400 mt-1">•</span>
+                                    <span>Owned the design and development of backend microservices powering an internal enterprise AI assistant ("Cassidy"), supporting secure question answering over sensitive corporate data with fine-grained access controls and compliance requirements</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-indigo-400 mt-1">•</span>
+                                    <span>Built a Kafka-based ingestion and embedding pipeline to process data from multiple enterprise systems, generate vector embeddings, and persist them in a vector database to enable low-latency semantic retrieval</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-indigo-400 mt-1">•</span>
+                                    <span>Designed service integrations and automated workflows using ServiceNow and Azure, enabling controlled onboarding of organizations, administrative units, and LLM access with auditable approvals</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-indigo-400 mt-1">•</span>
+                                    <span>Ensured compliance-ready deployment of AI services by enforcing data isolation, authorization boundaries, and auditability across enterprise systems</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Experience 2: Pharmeasy -->
+                <div class="glass-card rounded-2xl p-8 hover:bg-white/5 transition-all border-l-4 border-pink-500">
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-pink-500 to-red-500 flex items-center justify-center flex-shrink-0">
+                            <i data-lucide="layout" class="w-6 h-6 text-white"></i>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex items-start justify-between mb-3 flex-wrap gap-2">
+                                <div>
+                                    <h3 class="text-xl font-bold text-white mb-1">Senior Software Developer</h3>
+                                    <p class="text-pink-400 font-medium mb-2">Pharmeasy</p>
+                                </div>
+                                <span class="text-gray-400 text-sm">Jan 2022 - Aug 2023</span>
+                            </div>
+                            <ul class="space-y-2 text-gray-300">
+                                <li class="flex items-start gap-2">
+                                    <span class="text-pink-400 mt-1">•</span>
+                                    <span>Designed and built a dynamic page-layout rendering service enabling real-time personalization of products, offers, and UI widgets based on user context and behavior signals</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-pink-400 mt-1">•</span>
+                                    <span>Architected and scaled an ad-serving and recommendation pipeline for cross-sell and upsell use cases, contributing ₹1Cr+ in monthly incremental revenue</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-pink-400 mt-1">•</span>
+                                    <span>Implemented graph-based product discovery using Neo4j to model product hierarchies and relationships, enabling complex filtering and low-latency traversal queries at scale</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-pink-400 mt-1">•</span>
+                                    <span>Participated in architectural discussions and peer reviews to improve system scalability and maintainability</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Experience 3: Shiprocket -->
+                <div class="glass-card rounded-2xl p-8 hover:bg-white/5 transition-all border-l-4 border-blue-500">
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center flex-shrink-0">
+                            <i data-lucide="truck" class="w-6 h-6 text-white"></i>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex items-start justify-between mb-3 flex-wrap gap-2">
+                                <div>
+                                    <h3 class="text-xl font-bold text-white mb-1">Software Developer</h3>
+                                    <p class="text-blue-400 font-medium mb-2">Shiprocket</p>
+                                </div>
+                                <span class="text-gray-400 text-sm">Nov 2020 - Jan 2022</span>
+                            </div>
+                            <ul class="space-y-2 text-gray-300">
+                                <li class="flex items-start gap-2">
+                                    <span class="text-blue-400 mt-1">•</span>
+                                    <span>Led performance optimization of a high-volume communication platform delivering WhatsApp, email, and SMS notifications at scale, improving throughput and system stability</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-blue-400 mt-1">•</span>
+                                    <span>Drove API and database optimizations across a seller-facing monolith, reducing request latency and improving overall service responsiveness</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-blue-400 mt-1">•</span>
+                                    <span>Built an event-driven marketing data pipeline to capture and process user behaviour signals for targeted communication and analytics use cases</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-blue-400 mt-1">•</span>
+                                    <span>Hardened billing and payment execution paths to ensure transactional correctness under high concurrency</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-blue-400 mt-1">•</span>
+                                    <span>Developed scalable search infrastructure using Elasticsearch to enable low-latency access to orders and customer data</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Experience 4: Real Time Data Services -->
+                <div class="glass-card rounded-2xl p-8 hover:bg-white/5 transition-all border-l-4 border-cyan-500">
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500 to-teal-500 flex items-center justify-center flex-shrink-0">
+                            <i data-lucide="phone" class="w-6 h-6 text-white"></i>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex items-start justify-between mb-3 flex-wrap gap-2">
+                                <div>
+                                    <h3 class="text-xl font-bold text-white mb-1">Software Engineer</h3>
+                                    <p class="text-cyan-400 font-medium mb-2">Real Time Data Services</p>
+                                </div>
+                                <span class="text-gray-400 text-sm">June 2018 - Aug 2020</span>
+                            </div>
+                            <ul class="space-y-2 text-gray-300">
+                                <li class="flex items-start gap-2">
+                                    <span class="text-cyan-400 mt-1">•</span>
+                                    <span>Designed and implemented usage-based billing logic for VoIP calling services, supporting multiple payment plans and accurate metering of call activity</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-cyan-400 mt-1">•</span>
+                                    <span>Built a web-based management dashboard for configuring and monitoring VoIP services including IVR flows, outbound call campaigns, and call routing rules</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-cyan-400 mt-1">•</span>
+                                    <span>Integrated AWS S3 and Amazon Polly (Text-to-Speech) to generate, store, and manage audio recordings used dynamically within call flow pipelines</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-cyan-400 mt-1">•</span>
+                                    <span>Contributed to performance optimization and reliability improvements across telephony pipelines by identifying bottlenecks and hardening critical execution paths</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Repositories Section -->
+    <section id="repos" class="py-20 px-6">
+        <div class="container mx-auto max-w-7xl">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">
+                    <span class="gradient-text">My Repositories</span>
+                </h2>
+                <p class="text-gray-400 text-lg">Explore my open-source projects and contributions</p>
+            </div>
+            
+            <div id="repos-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Loading State -->
+                <div class="col-span-full flex flex-col items-center justify-center py-20">
+                    <div class="spinner w-12 h-12 mb-4"></div>
+                    <p class="text-gray-400">Loading repositories...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Current Work Section -->
+    <section id="work" class="py-20 px-6">
+        <div class="container mx-auto max-w-6xl">
+            <div class="glass-card rounded-2xl p-8 md:p-12" data-aos="fade-up">
+                <div class="flex items-center gap-3 mb-8">
+                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center">
+                        <i data-lucide="rocket" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <h2 class="text-3xl md:text-4xl font-bold">
+                        <span class="gradient-text">Currently Working On</span>
+                    </h2>
+                </div>
+                
+                <div id="current-work" class="space-y-4">
+                    <!-- Content will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Projects Section -->
+    <section id="featured" class="py-20 px-6">
+        <div class="container mx-auto max-w-6xl">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">
+                    <span class="gradient-text">Featured Projects</span>
+                </h2>
+                <p class="text-gray-400 text-lg">Research and development highlights</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" data-aos="fade-up" data-aos-delay="100">
+                <!-- Project 1: Deep Reinforcement Learning -->
+                <div class="glass-card rounded-2xl p-8 md:p-10 hover:bg-white/5 transition-all">
+                    <div class="flex items-start gap-6">
+                        <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center flex-shrink-0">
+                            <i data-lucide="brain" class="w-8 h-8 text-white"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-2xl font-bold text-white mb-2">
+                                Deep Reinforcement Learning for Dynamic Spectrum Access
+                            </h3>
+                            <a href="https://github.com/shkrwnd/Deep-Reinforcement-Learning-for-Dynamic-Spectrum-Access" 
+                               target="_blank" 
+                               rel="noopener"
+                               class="text-indigo-400 hover:text-indigo-300 transition-colors flex items-center gap-2 text-sm mb-4">
+                                <i data-lucide="external-link" class="w-4 h-4"></i>
+                                View on GitHub
+                            </a>
+                            <p class="text-gray-300 mb-4">
+                                Using Deep Recurrent Q learning for multi-agent co-operation in distributed dynamic spectrum access.
+                            </p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1 rounded-lg text-xs font-medium bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+                                    Python
+                                </span>
+                                <span class="px-3 py-1 rounded-lg text-xs font-medium bg-purple-500/20 text-purple-300 border border-purple-500/30">
+                                    TensorFlow
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 2: Graph RAG -->
+                <div class="glass-card rounded-2xl p-8 md:p-10 hover:bg-white/5 transition-all">
+                    <div class="flex items-start gap-6">
+                        <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-purple-500 via-pink-500 to-red-500 flex items-center justify-center flex-shrink-0">
+                            <i data-lucide="network" class="w-8 h-8 text-white"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-2xl font-bold text-white mb-2">
+                                Graph RAG to improve Information Retrieval in LLMs
+                            </h3>
+                            <p class="text-gray-300 mb-4">
+                                Built a graph-augmented RAG pipeline using SBERT, Graph Neural Network (GNN) based score propagation, and LLM answer generation (LangChain, Milvus). Improved retrieval quality over vanilla vector-based RAG on multi-hop queries.
+                            </p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1 rounded-lg text-xs font-medium bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+                                    Langchain
+                                </span>
+                                <span class="px-3 py-1 rounded-lg text-xs font-medium bg-purple-500/20 text-purple-300 border border-purple-500/30">
+                                    Graph Neural Network
+                                </span>
+                                <span class="px-3 py-1 rounded-lg text-xs font-medium bg-pink-500/20 text-pink-300 border border-pink-500/30">
+                                    Milvus DB
+                                </span>
+                                <span class="px-3 py-1 rounded-lg text-xs font-medium bg-blue-500/20 text-blue-300 border border-blue-500/30">
+                                    Python
+                                </span>
+                                <span class="px-3 py-1 rounded-lg text-xs font-medium bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">
+                                    S3
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 3: Cursor for Living Documents (canon) -->
+                <div class="glass-card rounded-2xl p-8 md:p-10 hover:bg-white/5 transition-all">
+                    <div class="flex items-start gap-6">
+                        <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center flex-shrink-0">
+                            <i data-lucide="file-edit" class="w-8 h-8 text-white"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-2xl font-bold text-white mb-2">
+                                Cursor for Living Documents
+                            </h3>
+                            <a href="https://github.com/shkrwnd/canon" 
+                               target="_blank" 
+                               rel="noopener"
+                               class="text-indigo-400 hover:text-indigo-300 transition-colors flex items-center gap-2 text-sm mb-4">
+                                <i data-lucide="external-link" class="w-4 h-4"></i>
+                                View on GitHub
+                            </a>
+                            <p class="text-gray-300 mb-4">
+                                An agentic editor that maintains evolving, authoritative documents through natural language intent. Built with FastAPI, React, and OpenAI GPT-4o, it brings Cursor-like intelligence to non-code content, allowing users to express changes in plain language while the system maintains a single canonical document state.
+                            </p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1 rounded-lg text-xs font-medium bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+                                    FastAPI
+                                </span>
+                                <span class="px-3 py-1 rounded-lg text-xs font-medium bg-blue-500/20 text-blue-300 border border-blue-500/30">
+                                    React
+                                </span>
+                                <span class="px-3 py-1 rounded-lg text-xs font-medium bg-green-500/20 text-green-300 border border-green-500/30">
+                                    OpenAI GPT-4o
+                                </span>
+                                <span class="px-3 py-1 rounded-lg text-xs font-medium bg-purple-500/20 text-purple-300 border border-purple-500/30">
+                                    SQLite
+                                </span>
+                                <span class="px-3 py-1 rounded-lg text-xs font-medium bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">
+                                    Tavily
+                                </span>
+                                <span class="px-3 py-1 rounded-lg text-xs font-medium bg-pink-500/20 text-pink-300 border border-pink-500/30">
+                                    Tailwind
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="py-12 px-6 border-t border-white/10 mt-20">
+        <div class="container mx-auto max-w-6xl text-center">
+            <p class="text-gray-400">
+                © 2024 Shikhar Tiwari. Built with passion and modern web technologies.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true,
+            offset: 100
+        });
+        
+        // Initialize Lucide Icons
+        lucide.createIcons();
+        
+        const GITHUB_USERNAME = 'shkrwnd';
+        const GITHUB_API = `https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=100&type=all`;
+        
+        // List of repositories to display (add repository names here)
+        // Leave empty array [] to show all repositories, or add specific names to filter
+        // To find your repository names, check the browser console after page loads
+        const REPOSITORIES_TO_SHOW = [
+            'canon',
+            'Deep-Reinforcement-Learning-for-Dynamic-Spectrum-Access',
+            'openCV-js',
+        ];
+        
+        // Language color mapping
+        const languageColors = {
+            'JavaScript': '#f7df1e',
+            'TypeScript': '#3178c6',
+            'Python': '#3776ab',
+            'Java': '#ed8b00',
+            'C++': '#00599c',
+            'React': '#61dafb',
+            'Vue': '#4fc08d',
+            'Go': '#00add8',
+            'Rust': '#000000',
+            'PHP': '#777bb4',
+            'Ruby': '#cc342d',
+            'Swift': '#fa7343',
+            'Kotlin': '#7f52ff',
+            'Dart': '#0175c2',
+            'HTML': '#e34c26',
+            'CSS': '#1572b6',
+            'SCSS': '#c6538c',
+        };
+        
+        async function fetchRepositories() {
+            try {
+                const response = await fetch(GITHUB_API);
+                
+                if (!response.ok) {
+                    throw new Error('Failed to fetch repositories');
+                }
+                
+                const repos = await response.json();
+                
+                if (repos.message) {
+                    document.getElementById('repos-container').innerHTML = 
+                        `<div class="col-span-full text-center text-red-400 py-20">Error: ${repos.message}</div>`;
+                    return;
+                }
+                
+                // Log all available repositories to console for easy reference
+                const allRepoNames = repos.map(repo => repo.name).sort();
+                console.log('📦 Available Repositories:');
+                console.log('Copy these names to REPOSITORIES_TO_SHOW array:');
+                allRepoNames.forEach(name => {
+                    console.log(`  '${name}',`);
+                });
+                
+                // Filter repositories
+                let filteredRepos = repos.filter(repo => !repo.fork || repo.stargazers_count > 0);
+                
+                // If REPOSITORIES_TO_SHOW is specified, filter by that list
+                if (REPOSITORIES_TO_SHOW.length > 0) {
+                    filteredRepos = filteredRepos.filter(repo => 
+                        REPOSITORIES_TO_SHOW.includes(repo.name)
+                    );
+                    console.log(`✅ Showing ${filteredRepos.length} filtered repositories`);
+                } else {
+                    console.log(`📋 Showing all ${filteredRepos.length} repositories (REPOSITORIES_TO_SHOW is empty)`);
+                }
+                
+                displayRepositories(filteredRepos);
+                displayCurrentWork(filteredRepos);
+            } catch (error) {
+                document.getElementById('repos-container').innerHTML = 
+                    `<div class="col-span-full text-center text-red-400 py-20">Error fetching data. Please check your internet connection.</div>`;
+                console.error('Error:', error);
+            }
+        }
+        
+        function displayRepositories(repos) {
+            const reposContainer = document.getElementById('repos-container');
+            
+            if (repos.length === 0) {
+                reposContainer.innerHTML = 
+                    '<div class="col-span-full text-center text-gray-400 py-20">No repositories found.</div>';
+                return;
+            }
+            
+            reposContainer.innerHTML = repos.map((repo, index) => {
+                const langColor = languageColors[repo.language] || '#6366f1';
+                
+                return `
+                    <div class="repo-card glass-card rounded-2xl p-6 gradient-border" 
+                         data-aos="fade-up" 
+                         data-aos-delay="${index * 100}">
+                        <div class="flex items-start justify-between mb-4">
+                            <a href="${repo.html_url}" 
+                               target="_blank" 
+                               rel="noopener"
+                               class="text-xl font-bold text-white hover:text-indigo-400 transition-colors flex-1">
+                                ${repo.name}
+                            </a>
+                            <i data-lucide="external-link" class="w-4 h-4 text-gray-400 flex-shrink-0 ml-2"></i>
+                        </div>
+                        
+                        <p class="text-gray-400 text-sm mb-6 min-h-[3rem] line-clamp-2">
+                            ${repo.description || 'No description available'}
+                        </p>
+                        
+                        <div class="flex items-center gap-6 mb-4 flex-wrap">
+                            <div class="flex items-center gap-2 text-gray-300">
+                                <i data-lucide="star" class="w-4 h-4 text-yellow-400"></i>
+                                <span class="font-semibold">${repo.stargazers_count}</span>
+                            </div>
+                            <div class="flex items-center gap-2 text-gray-300">
+                                <i data-lucide="git-fork" class="w-4 h-4 text-blue-400"></i>
+                                <span class="font-semibold">${repo.forks_count}</span>
+                            </div>
+                            ${repo.language ? `
+                                <div class="flex items-center gap-2">
+                                    <div class="w-3 h-3 rounded-full" style="background-color: ${langColor}"></div>
+                                    <span class="text-gray-300 text-sm">${repo.language}</span>
+                                </div>
+                            ` : ''}
+                        </div>
+                        
+                        ${repo.topics && repo.topics.length > 0 ? `
+                            <div class="flex flex-wrap gap-2 mt-4">
+                                ${repo.topics.slice(0, 4).map(topic => `
+                                    <span class="px-3 py-1 rounded-full text-xs font-medium bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+                                        ${topic}
+                                    </span>
+                                `).join('')}
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            }).join('');
+            
+            // Re-initialize icons for new content
+            lucide.createIcons();
+        }
+        
+        function displayCurrentWork(repos) {
+            // Filter to only show canon project
+            const canonRepo = repos.find(repo => repo.name === 'canon');
+            const currentWorkContainer = document.getElementById('current-work');
+            
+            if (!canonRepo) {
+                currentWorkContainer.innerHTML = 
+                    '<p class="text-gray-400">No current work to display.</p>';
+                return;
+            }
+            
+            const langColor = languageColors[canonRepo.language] || '#6366f1';
+            const daysAgo = Math.floor((new Date() - new Date(canonRepo.updated_at)) / (1000 * 60 * 60 * 24));
+            const canonDescription = 'An agentic editor that maintains evolving, authoritative documents through natural language intent. Built with FastAPI, React, and OpenAI GPT-4o, it brings Cursor-like intelligence to non-code content, allowing users to express changes in plain language while the system maintains a single canonical document state.';
+            
+            currentWorkContainer.innerHTML = `
+                <div class="glass-card rounded-xl p-6 hover:bg-white/5 transition-all border-l-4 border-indigo-500">
+                    <div class="flex items-start justify-between mb-3">
+                        <a href="${canonRepo.html_url}" 
+                           target="_blank" 
+                           rel="noopener"
+                           class="text-xl font-semibold text-white hover:text-indigo-400 transition-colors">
+                            ${canonRepo.name}
+                        </a>
+                        <i data-lucide="arrow-up-right" class="w-5 h-5 text-gray-400"></i>
+                    </div>
+                    <p class="text-gray-400 mb-4">${canonDescription}</p>
+                    <div class="flex items-center gap-4 text-sm text-gray-500">
+                        ${canonRepo.language ? `
+                            <div class="flex items-center gap-2">
+                                <div class="w-3 h-3 rounded-full" style="background-color: ${langColor}"></div>
+                                <span>${canonRepo.language}</span>
+                            </div>
+                        ` : ''}
+                        <div class="flex items-center gap-2">
+                            <i data-lucide="clock" class="w-4 h-4"></i>
+                            <span>Updated ${daysAgo === 0 ? 'today' : daysAgo === 1 ? 'yesterday' : `${daysAgo} days ago`}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Re-initialize icons
+            lucide.createIcons();
+        }
+        
+        // Load repositories when page loads
+        fetchRepositories();
+        
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
