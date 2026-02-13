@@ -804,7 +804,6 @@
             
             const langColor = languageColors[canonRepo.language] || '#6366f1';
             const daysAgo = Math.floor((new Date() - new Date(canonRepo.updated_at)) / (1000 * 60 * 60 * 24));
-            const canonDescription = 'An agentic editor that maintains evolving, authoritative documents through natural language intent. Built with FastAPI, React, and OpenAI GPT-4o, it brings Cursor-like intelligence to non-code content, allowing users to express changes in plain language while the system maintains a single canonical document state.';
             
             currentWorkContainer.innerHTML = `
                 <div class="glass-card rounded-xl p-6 hover:bg-white/5 transition-all border-l-4 border-indigo-500">
@@ -817,8 +816,19 @@
                         </a>
                         <i data-lucide="arrow-up-right" class="w-5 h-5 text-gray-400"></i>
                     </div>
-                    <p class="text-gray-400 mb-4">${canonDescription}</p>
-                    <div class="flex flex-wrap gap-4 mb-4 text-sm">
+                    <h4 class="text-lg font-semibold text-white mb-2">Edit documents by describing what you want.</h4>
+                    <p class="text-gray-400 mb-4">Canon is a living documents editor. Tell it in plain language what to change; an AI agent rewrites your content and searches the web when it needs facts.</p>
+                    <p class="text-gray-500 text-sm font-medium mb-2">What Canon can do</p>
+                    <ul class="text-gray-400 text-sm space-y-1.5 mb-4 list-disc list-inside">
+                        <li><strong class="text-gray-300">Describe edits, don't type them</strong> — Say things like "Add a section on benefits" or "Make this more concise." The AI updates the right document and the right part.</li>
+                        <li><strong class="text-gray-300">Reference documents by name</strong> — Ask to "Update the Blog Post with a new intro" or "Add a conclusion to my Skincare guide." Canon knows which document you mean.</li>
+                        <li><strong class="text-gray-300">Stay accurate with the web</strong> — When the agent needs current information, it searches the web and weaves that into your content.</li>
+                        <li><strong class="text-gray-300">Edit one place or many</strong> — Give standing instructions per document, or work across multiple modules in one conversation.</li>
+                        <li><strong class="text-gray-300">Keep full control</strong> — Switch to direct markdown editing anytime to tweak or override what the agent wrote.</li>
+                        <li><strong class="text-gray-300">Never lose the thread</strong> — All chats and documents are saved so you can pick up where you left off.</li>
+                    </ul>
+                    <p class="text-indigo-300 italic text-sm border-l-2 border-indigo-500 pl-3">"Living documents that change when you say what you want."</p>
+                    <div class="flex flex-wrap gap-4 mb-4 mt-4 text-sm">
                         <a href="${canonRepo.html_url}" target="_blank" rel="noopener" class="text-indigo-400 hover:text-indigo-300 transition-colors flex items-center gap-2">
                             <i data-lucide="external-link" class="w-4 h-4"></i>
                             View on GitHub
