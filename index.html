@@ -92,6 +92,7 @@
             mask-composite: exclude;
             opacity: 0;
             transition: opacity 0.3s;
+            pointer-events: none;
         }
         
         .gradient-border:hover::before {
@@ -358,11 +359,11 @@
                                 </li>
                                 <li class="flex items-start gap-2">
                                     <span class="text-pink-400 mt-1">•</span>
-                                    <span>Architected and scaled an ad-serving and recommendation pipeline for cross-sell and upsell use cases, contributing ₹1Cr+ in monthly incremental revenue</span>
+                                    <span>Architected and scaled an ad-serving and recommendation systems for cross-sell and upsell use cases, contributing ₹1Cr+ in monthly incremental revenue</span>
                                 </li>
                                 <li class="flex items-start gap-2">
                                     <span class="text-pink-400 mt-1">•</span>
-                                    <span>Implemented graph-based product discovery using Neo4j to model product hierarchies and relationships, enabling complex filtering and low-latency traversal queries at scale</span>
+                                    <span>Implemented graph-based product discovery in e commerce website using Neo4j to model product hierarchies and relationships, enabling complex filtering and low-latency traversal queries at scale</span>
                                 </li>
                                 <li class="flex items-start gap-2">
                                     <span class="text-pink-400 mt-1">•</span>
@@ -579,13 +580,22 @@
                             <h3 class="text-2xl font-bold text-white mb-2">
                                 Cursor for Living Documents
                             </h3>
-                            <a href="https://github.com/shkrwnd/canon" 
-                               target="_blank" 
-                               rel="noopener"
-                               class="text-indigo-400 hover:text-indigo-300 transition-colors flex items-center gap-2 text-sm mb-4">
-                                <i data-lucide="external-link" class="w-4 h-4"></i>
-                                View on GitHub
-                            </a>
+                            <div class="flex flex-wrap gap-4 mb-4">
+                                <a href="https://github.com/shkrwnd/canon" 
+                                   target="_blank" 
+                                   rel="noopener"
+                                   class="text-indigo-400 hover:text-indigo-300 transition-colors flex items-center gap-2 text-sm">
+                                    <i data-lucide="external-link" class="w-4 h-4"></i>
+                                    View on GitHub
+                                </a>
+                                <a href="https://canon-frontend-782386821852.europe-west1.run.app/" 
+                                   target="_blank" 
+                                   rel="noopener"
+                                   class="text-indigo-400 hover:text-indigo-300 transition-colors flex items-center gap-2 text-sm">
+                                    <i data-lucide="globe" class="w-4 h-4"></i>
+                                    Live Demo
+                                </a>
+                            </div>
                             <p class="text-gray-300 mb-4">
                                 An agentic editor that maintains evolving, authoritative documents through natural language intent. Built with FastAPI, React, and OpenAI GPT-4o, it brings Cursor-like intelligence to non-code content, allowing users to express changes in plain language while the system maintains a single canonical document state.
                             </p>
@@ -729,17 +739,18 @@
                 const langColor = languageColors[repo.language] || '#6366f1';
                 
                 return `
-                    <div class="repo-card glass-card rounded-2xl p-6 gradient-border" 
+                    <div class="repo-card glass-card rounded-2xl p-6 gradient-border relative" 
                          data-aos="fade-up" 
                          data-aos-delay="${index * 100}">
-                        <div class="flex items-start justify-between mb-4">
-                            <a href="${repo.html_url}" 
-                               target="_blank" 
-                               rel="noopener"
-                               class="text-xl font-bold text-white hover:text-indigo-400 transition-colors flex-1">
-                                ${repo.name}
-                            </a>
-                            <i data-lucide="external-link" class="w-4 h-4 text-gray-400 flex-shrink-0 ml-2"></i>
+                        <a href="${repo.html_url}" 
+                           target="_blank" 
+                           rel="noopener noreferrer"
+                           class="absolute top-4 right-4 p-2 rounded-lg text-gray-400 hover:text-indigo-400 hover:bg-white/5 transition-all"
+                           title="View on GitHub">
+                            <i data-lucide="external-link" class="w-5 h-5"></i>
+                        </a>
+                        <div class="pr-12 mb-4">
+                            <h3 class="text-xl font-bold text-white">${repo.name}</h3>
                         </div>
                         
                         <p class="text-gray-400 text-sm mb-6 min-h-[3rem] line-clamp-2">
@@ -807,6 +818,16 @@
                         <i data-lucide="arrow-up-right" class="w-5 h-5 text-gray-400"></i>
                     </div>
                     <p class="text-gray-400 mb-4">${canonDescription}</p>
+                    <div class="flex flex-wrap gap-4 mb-4 text-sm">
+                        <a href="${canonRepo.html_url}" target="_blank" rel="noopener" class="text-indigo-400 hover:text-indigo-300 transition-colors flex items-center gap-2">
+                            <i data-lucide="external-link" class="w-4 h-4"></i>
+                            View on GitHub
+                        </a>
+                        <a href="https://canon-frontend-782386821852.europe-west1.run.app/" target="_blank" rel="noopener" class="text-indigo-400 hover:text-indigo-300 transition-colors flex items-center gap-2">
+                            <i data-lucide="globe" class="w-4 h-4"></i>
+                            Live Demo
+                        </a>
+                    </div>
                     <div class="flex items-center gap-4 text-sm text-gray-500">
                         ${canonRepo.language ? `
                             <div class="flex items-center gap-2">
