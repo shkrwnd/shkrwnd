@@ -15,7 +15,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -98,6 +98,219 @@
         .gradient-border:hover::before {
             opacity: 1;
         }
+        
+        .repo-description {
+            scrollbar-width: thin;
+            scrollbar-color: rgba(99, 102, 241, 0.5) transparent;
+        }
+        .repo-description::-webkit-scrollbar {
+            width: 6px;
+        }
+        .repo-description::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .repo-description::-webkit-scrollbar-thumb {
+            background: rgba(99, 102, 241, 0.5);
+            border-radius: 3px;
+        }
+        .repo-description::-webkit-scrollbar-thumb:hover {
+            background: rgba(99, 102, 241, 0.7);
+        }
+        
+        /* Expandable repo card */
+        .repo-card-clickable {
+            cursor: pointer;
+            transition: opacity 0.35s ease, transform 0.35s ease, padding 0.35s ease, margin 0.35s ease;
+        }
+        .repo-card-clickable .repo-details {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease, transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .repo-card-clickable.expanded .repo-details {
+            max-height: 420px;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .repo-card-clickable .repo-chevron {
+            transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .repo-card-clickable.expanded .repo-chevron {
+            transform: rotate(180deg);
+        }
+        .repo-card-clickable .repo-preview {
+            transition: opacity 0.25s ease;
+        }
+        .repo-card-clickable.expanded .repo-preview {
+            opacity: 0.7;
+        }
+        /* When one card is expanded, slide out and hide the others */
+        #repos-container.has-expanded .repo-card-clickable:not(.expanded) {
+            max-height: 0;
+            min-height: 0;
+            opacity: 0;
+            transform: scale(0.95) translateY(-16px);
+            overflow: hidden;
+            padding-top: 0;
+            padding-bottom: 0;
+            margin: 0;
+            pointer-events: none;
+            border: none;
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease, transform 0.35s ease, padding 0.35s ease, margin 0.35s ease;
+        }
+        /* Expanded card takes full width when others are hidden */
+        #repos-container.has-expanded .repo-card-clickable.expanded {
+            grid-column: 1 / -1;
+            transform-origin: left center;
+            animation: repo-expand-full-width 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+        @keyframes repo-expand-full-width {
+            from {
+                opacity: 0.88;
+                transform: scaleX(0.2);
+            }
+            to {
+                opacity: 1;
+                transform: scaleX(1);
+            }
+        }
+        .repo-stat-highlight {
+            background: rgba(99, 102, 241, 0.15);
+            border: 1px solid rgba(99, 102, 241, 0.4);
+            padding: 6px 16px;
+            border-radius: 10px;
+            font-weight: 600;
+            min-width: 56px;
+            justify-content: center;
+            transition: padding 0.3s ease, min-width 0.3s ease, background 0.25s ease, box-shadow 0.25s ease;
+        }
+        .repo-stat-stars-highlight {
+            background: rgba(234, 179, 8, 0.2);
+            border: 1px solid rgba(234, 179, 8, 0.55);
+            color: rgb(253, 224, 71);
+            box-shadow: 0 0 12px rgba(234, 179, 8, 0.2);
+        }
+        .repo-stat-stars-highlight:hover {
+            background: rgba(234, 179, 8, 0.28);
+            box-shadow: 0 0 16px rgba(234, 179, 8, 0.3);
+        }
+        .repo-stat-forks-highlight {
+            background: rgba(59, 130, 246, 0.2);
+            border: 1px solid rgba(59, 130, 246, 0.55);
+            color: rgb(147, 197, 253);
+            box-shadow: 0 0 12px rgba(59, 130, 246, 0.2);
+        }
+        .repo-stat-forks-highlight:hover {
+            background: rgba(59, 130, 246, 0.28);
+            box-shadow: 0 0 16px rgba(59, 130, 246, 0.3);
+        }
+        
+        /* Terminal section */
+        .terminal-container {
+            font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+            background: #0d1117;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+        .terminal-title-bar {
+            background: #161b22;
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .terminal-dot { width: 12px; height: 12px; border-radius: 50%; }
+        .terminal-dot.red { background: #ff5f56; }
+        .terminal-dot.yellow { background: #ffbd2e; }
+        .terminal-dot.green { background: #27ca40; }
+        .terminal-output {
+            padding: 20px;
+            min-height: 280px;
+            max-height: 400px;
+            overflow-y: auto;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .terminal-output .line { margin-bottom: 6px; }
+        .terminal-output .prompt { color: #7ee787; }
+        .terminal-output .command { color: #79c0ff; }
+        .terminal-output .output { color: #c9d1d9; }
+        .terminal-output .output a { color: #58a6ff; text-decoration: underline; }
+        .terminal-output .error { color: #ff7b72; }
+        .terminal-input-line {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            background: #161b22;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .terminal-input-line .prompt { color: #7ee787; margin-right: 8px; flex-shrink: 0; }
+        .terminal-input-line input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: #c9d1d9;
+            font-family: inherit;
+            font-size: 14px;
+            outline: none;
+        }
+        .terminal-input-line input::placeholder { color: #484f58; }
+        .terminal-cursor {
+            display: inline-block;
+            width: 8px;
+            height: 16px;
+            background: #7ee787;
+            margin-left: 2px;
+            animation: terminal-blink 1s step-end infinite;
+        }
+        @keyframes terminal-blink {
+            50% { opacity: 0; }
+        }
+        .terminal-cmd-chip {
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            font-size: 13px;
+            padding: 6px 14px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #7ee787;
+            cursor: pointer;
+            transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+        }
+        .terminal-cmd-chip:hover {
+            background: rgba(126, 231, 135, 0.12);
+            border-color: rgba(126, 231, 135, 0.4);
+            color: #9eea9e;
+        }
+        .terminal-ai-badge {
+            font-size: 10px;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 6px;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.4), rgba(139, 92, 246, 0.4));
+            color: #c4b5fd;
+            margin-left: 8px;
+            letter-spacing: 0.5px;
+        }
+        .terminal-thinking {
+            color: #79c0ff;
+            font-style: italic;
+        }
+        .terminal-cta {
+            color: #64748b;
+            font-style: italic;
+            opacity: 0.9;
+        }
+        .terminal-cta.terminal-cta-plea {
+            color: #94a3b8;
+            font-size: 0.95em;
+            margin-top: 2px;
+        }
     </style>
 </head>
 <body class="min-h-screen text-white">
@@ -112,6 +325,7 @@
                     <a href="#repos" class="text-gray-300 hover:text-white transition-colors">Projects</a>
                     <a href="#work" class="text-gray-300 hover:text-white transition-colors">Current Work</a>
                     <a href="#featured" class="text-gray-300 hover:text-white transition-colors">Featured</a>
+                    <a href="#contact-me" class="text-gray-300 hover:text-white transition-colors">Contact Me</a>
                 </div>
             </div>
         </div>
@@ -323,7 +537,7 @@
                                 </li>
                                 <li class="flex items-start gap-2">
                                     <span class="text-indigo-400 mt-1">•</span>
-                                    <span>Built a Kafka-based ingestion and embedding pipeline to process data from multiple enterprise systems, generate vector embeddings, and persist them in a vector database to enable low-latency semantic retrieval</span>
+                                    <span>Built a Kafka-based ingestion and embedding service to process data from multiple enterprise systems, generate vector embeddings, and persist them in a vector database to enable low-latency semantic retrieval</span>
                                 </li>
                                 <li class="flex items-start gap-2">
                                     <span class="text-indigo-400 mt-1">•</span>
@@ -626,6 +840,51 @@
         </div>
     </section>
     
+    <!-- Contact Me (Terminal) Section -->
+    <section id="contact-me" class="py-20 px-6" data-aos="fade-up">
+        <div class="container mx-auto max-w-4xl">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">
+                    <span class="gradient-text">Contact Me</span>
+                </h2>
+                <p class="text-gray-400 text-lg">Ask the AI assistant to get in touch or learn more</p>
+            </div>
+            <div class="terminal-container">
+                <div class="terminal-title-bar">
+                    <span class="terminal-dot red"></span>
+                    <span class="terminal-dot yellow"></span>
+                    <span class="terminal-dot green"></span>
+                    <span class="text-gray-500 text-sm ml-4">Contact Me — AI Terminal</span>
+                    <span class="terminal-ai-badge">AI</span>
+                </div>
+                <div id="terminal-output" class="terminal-output">
+                    <div class="line output">Ask about Shikhar or type <span class="command">help</span> for commands.</div>
+                </div>
+                <div class="terminal-input-line">
+                    <span class="prompt">ai@portfolio:~$</span>
+                    <input type="text" id="terminal-input" autocomplete="off" spellcheck="false" placeholder="Type a command..." />
+                    <span class="terminal-cursor"></span>
+                </div>
+            </div>
+            <p class="text-gray-500 text-sm mt-6 mb-3">Supported commands — click to add to terminal:</p>
+            <div id="terminal-commands-list" class="flex flex-wrap gap-2">
+                <button type="button" class="terminal-cmd-chip" data-cmd="help">help</button>
+                <button type="button" class="terminal-cmd-chip" data-cmd="contact">contact</button>
+                <button type="button" class="terminal-cmd-chip" data-cmd="hire">hire</button>
+                <button type="button" class="terminal-cmd-chip" data-cmd="resume">resume</button>
+                <button type="button" class="terminal-cmd-chip" data-cmd="whoami">whoami</button>
+                <button type="button" class="terminal-cmd-chip" data-cmd="linkedin">linkedin</button>
+                <button type="button" class="terminal-cmd-chip" data-cmd="github">github</button>
+                <button type="button" class="terminal-cmd-chip" data-cmd="projects">projects</button>
+                <button type="button" class="terminal-cmd-chip" data-cmd="about">about</button>
+                <button type="button" class="terminal-cmd-chip" data-cmd="ask">ask</button>
+                <button type="button" class="terminal-cmd-chip" data-cmd="echo hello">echo hello</button>
+                <button type="button" class="terminal-cmd-chip" data-cmd="clear">clear</button>
+                <button type="button" class="terminal-cmd-chip" data-cmd="exit">exit</button>
+            </div>
+        </div>
+    </section>
+    
     <!-- Footer -->
     <footer class="py-12 px-6 border-t border-white/10 mt-20">
         <div class="container mx-auto max-w-6xl text-center">
@@ -737,58 +996,90 @@
             
             reposContainer.innerHTML = repos.map((repo, index) => {
                 const langColor = languageColors[repo.language] || '#6366f1';
+                const starsHighlight = repo.stargazers_count > 0;
+                const forksHighlight = repo.forks_count > 0;
+                const desc = repo.description || 'No description available';
                 
                 return `
-                    <div class="repo-card glass-card rounded-2xl p-6 gradient-border relative" 
+                    <div class="repo-card repo-card-clickable glass-card rounded-2xl p-6 gradient-border relative" 
                          data-aos="fade-up" 
                          data-aos-delay="${index * 100}">
                         <a href="${repo.html_url}" 
                            target="_blank" 
                            rel="noopener noreferrer"
-                           class="absolute top-4 right-4 p-2 rounded-lg text-gray-400 hover:text-indigo-400 hover:bg-white/5 transition-all"
+                           onclick="event.stopPropagation()"
+                           class="absolute top-4 right-4 p-2 rounded-lg text-gray-400 hover:text-indigo-400 hover:bg-white/5 transition-all z-10"
                            title="View on GitHub">
                             <i data-lucide="external-link" class="w-5 h-5"></i>
                         </a>
-                        <div class="pr-12 mb-4">
-                            <h3 class="text-xl font-bold text-white">${repo.name}</h3>
+                        
+                        <div class="repo-preview pr-12">
+                            <div class="flex items-center justify-between gap-2 mb-3">
+                                <h3 class="text-xl font-bold text-white">${repo.name}</h3>
+                                <i data-lucide="chevron-down" class="w-5 h-5 text-gray-400 repo-chevron flex-shrink-0"></i>
+                            </div>
+                            <p class="text-gray-400 text-sm mb-4 line-clamp-2 min-h-[2.5rem]">${desc}</p>
+                            <div class="flex items-center gap-3 flex-wrap">
+                                <div class="flex items-center gap-2 ${starsHighlight ? 'repo-stat-highlight repo-stat-stars-highlight' : 'text-gray-300'}">
+                                    <i data-lucide="star" class="w-4 h-4 ${starsHighlight ? '' : 'text-yellow-400'}"></i>
+                                    <span class="font-semibold text-sm">${repo.stargazers_count}</span>
+                                </div>
+                                <div class="flex items-center gap-2 ${forksHighlight ? 'repo-stat-highlight repo-stat-forks-highlight' : 'text-gray-300'}">
+                                    <i data-lucide="git-fork" class="w-4 h-4 ${forksHighlight ? '' : 'text-blue-400'}"></i>
+                                    <span class="font-semibold text-sm">${repo.forks_count}</span>
+                                </div>
+                                ${repo.language ? `
+                                    <div class="flex items-center gap-2 text-gray-300">
+                                        <div class="w-3 h-3 rounded-full" style="background-color: ${langColor}"></div>
+                                        <span class="text-sm">${repo.language}</span>
+                                    </div>
+                                ` : ''}
+                            </div>
                         </div>
                         
-                        <p class="text-gray-400 text-sm mb-6 min-h-[3rem] line-clamp-2">
-                            ${repo.description || 'No description available'}
-                        </p>
-                        
-                        <div class="flex items-center gap-6 mb-4 flex-wrap">
-                            <div class="flex items-center gap-2 text-gray-300">
-                                <i data-lucide="star" class="w-4 h-4 text-yellow-400"></i>
-                                <span class="font-semibold">${repo.stargazers_count}</span>
+                        <div class="repo-details">
+                            <div class="repo-description text-gray-400 text-sm mt-4 mb-4 max-h-32 overflow-y-auto pr-1 border-t border-white/10 pt-4">
+                                <p>${desc}</p>
                             </div>
-                            <div class="flex items-center gap-2 text-gray-300">
-                                <i data-lucide="git-fork" class="w-4 h-4 text-blue-400"></i>
-                                <span class="font-semibold">${repo.forks_count}</span>
-                            </div>
-                            ${repo.language ? `
-                                <div class="flex items-center gap-2">
-                                    <div class="w-3 h-3 rounded-full" style="background-color: ${langColor}"></div>
-                                    <span class="text-gray-300 text-sm">${repo.language}</span>
+                            ${repo.topics && repo.topics.length > 0 ? `
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    ${repo.topics.map(topic => `
+                                        <span class="px-3 py-1 rounded-full text-xs font-medium bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+                                            ${topic}
+                                        </span>
+                                    `).join('')}
                                 </div>
                             ` : ''}
+                            <a href="${repo.html_url}" 
+                               target="_blank" 
+                               rel="noopener noreferrer"
+                               onclick="event.stopPropagation()"
+                               class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-indigo-500/20 text-indigo-300 border border-indigo-500/40 hover:bg-indigo-500/30 transition-all text-sm font-medium">
+                                <i data-lucide="external-link" class="w-4 h-4"></i>
+                                View on GitHub
+                            </a>
                         </div>
-                        
-                        ${repo.topics && repo.topics.length > 0 ? `
-                            <div class="flex flex-wrap gap-2 mt-4">
-                                ${repo.topics.slice(0, 4).map(topic => `
-                                    <span class="px-3 py-1 rounded-full text-xs font-medium bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
-                                        ${topic}
-                                    </span>
-                                `).join('')}
-                            </div>
-                        ` : ''}
                     </div>
                 `;
             }).join('');
             
             // Re-initialize icons for new content
             lucide.createIcons();
+            
+            // Toggle expand on card click; hide other cards when one is expanded
+            reposContainer.querySelectorAll('.repo-card-clickable').forEach(card => {
+                card.addEventListener('click', function() {
+                    const wasExpanded = this.classList.contains('expanded');
+                    // Close any other expanded card
+                    reposContainer.querySelectorAll('.repo-card-clickable.expanded').forEach(c => c.classList.remove('expanded'));
+                    if (!wasExpanded) {
+                        this.classList.add('expanded');
+                        reposContainer.classList.add('has-expanded');
+                    } else {
+                        reposContainer.classList.remove('has-expanded');
+                    }
+                });
+            });
         }
         
         function displayCurrentWork(repos) {
@@ -873,6 +1164,111 @@
                 }
             });
         });
+        
+        // Contact Me terminal commands
+        const terminalOutput = document.getElementById('terminal-output');
+        const terminalInput = document.getElementById('terminal-input');
+        
+        const TERMINAL_PROMPT = 'ai@portfolio:~$';
+        const THINKING_DELAY_MS = 500;
+        
+        const terminalCommands = {
+            help: () => `<div class="line output">Here’s what I can do:</div>
+<div class="line output">&nbsp;&nbsp;<span class="command">help</span>     — List all commands</div>
+<div class="line output">&nbsp;&nbsp;<span class="command">contact</span>  — Show contact details</div>
+<div class="line output">&nbsp;&nbsp;<span class="command">hire</span>     — Hiring / availability</div>
+<div class="line output">&nbsp;&nbsp;<span class="command">resume</span>   — Resume / CV</div>
+<div class="line output">&nbsp;&nbsp;<span class="command">whoami</span>   — Short intro</div>
+<div class="line output">&nbsp;&nbsp;<span class="command">linkedin</span> — Open LinkedIn</div>
+<div class="line output">&nbsp;&nbsp;<span class="command">github</span>   — Open GitHub</div>
+<div class="line output">&nbsp;&nbsp;<span class="command">projects</span> — Jump to projects</div>
+<div class="line output">&nbsp;&nbsp;<span class="command">about</span>   — About Shikhar</div>
+<div class="line output">&nbsp;&nbsp;<span class="command">ask</span>     — Ask me anything</div>
+<div class="line output">&nbsp;&nbsp;<span class="command">echo &lt;text&gt;</span> — Echo back text</div>
+<div class="line output">&nbsp;&nbsp;<span class="command">clear</span>    — Clear screen</div>
+<div class="line output">&nbsp;&nbsp;<span class="command">exit</span>     — Goodbye</div>`,
+            contact: () => `<div class="line output">I’d be happy to share how to reach Shikhar:</div>
+<div class="line output">Email: <a href="mailto:shikhar.tiwari1996@gmail.com" target="_blank" rel="noopener">shikhar.tiwari1996@gmail.com</a></div>
+<div class="line output">Phone: (201) 349-6989</div>
+<div class="line output">LinkedIn: <a href="https://www.linkedin.com/in/shikhar-tiwari-4a9ba7142/" target="_blank" rel="noopener">linkedin.com/in/shikhar-tiwari-4a9ba7142</a></div>
+<div class="line output">GitHub: <a href="https://github.com/shkrwnd" target="_blank" rel="noopener">github.com/shkrwnd</a></div>
+<div class="line output">Location: New York, NY</div>
+<div class="line output">— Get in touch anytime!</div>`,
+            hire: () => { window.open('mailto:shikhar.tiwari1996@gmail.com?subject=Portfolio Contact'); return `<div class="line output">Opening your mail client… I’d love to connect—feel free to reach out for opportunities!</div>`; },
+            resume: () => `<div class="line output">Resume: <a href="#" target="_blank" rel="noopener">Add your resume link here</a></div>
+<div class="line output">(Update the link in the code to your actual resume URL.)</div>`,
+            whoami: () => `<div class="line output">Shikhar is a Senior Software Engineer with 7+ years building distributed backend and full-stack systems, including AI-powered retrieval, personalization, and recommendation platforms.</div>`,
+            linkedin: () => { window.open('https://www.linkedin.com/in/shikhar-tiwari-4a9ba7142/', '_blank'); return `<div class="line output">Opening LinkedIn profile…</div>`; },
+            github: () => { window.open('https://github.com/shkrwnd', '_blank'); return `<div class="line output">Opening GitHub profile…</div>`; },
+            projects: () => { document.querySelector('#repos')?.scrollIntoView({ behavior: 'smooth', block: 'start' }); return `<div class="line output">Taking you to the Projects section…</div>`; },
+            about: () => `<div class="line output">Shikhar is a Senior Software Engineer, researcher, and startup founder. He builds AI-driven systems that solve real-world problems. Previously at Walmart Global Tech, Pharmeasy, Shiprocket, and more. MS in Information Technology from Rutgers. Based in New York.</div>`,
+            ask: () => `<div class="line output">I’m the AI assistant for Shikhar’s portfolio. I can share contact info, projects, and more—try <span class="command">contact</span> to reach him or <span class="command">about</span> to learn more.</div>`,
+            clear: () => { terminalOutput.innerHTML = ''; return null; },
+            exit: () => `<div class="line output">Goodbye! Thanks for visiting. 👋</div>`
+        };
+        
+        function runTerminalCommand(cmd, args) {
+            const c = cmd.toLowerCase().trim();
+            if (c === 'echo') return `<div class="line output">${args.join(' ') || '(empty)'}</div>`;
+            if (terminalCommands[c]) {
+                const result = terminalCommands[c]();
+                return result;
+            }
+            return `<div class="line error">I'm not sure how to do that. Type <span class="command">help</span> to see what I can do.</div>`;
+        }
+        
+        function scrollTerminalToBottom() {
+            if (terminalOutput) terminalOutput.scrollTop = terminalOutput.scrollHeight;
+        }
+        
+        if (terminalInput) {
+            terminalInput.addEventListener('keydown', function (e) {
+                if (e.key !== 'Enter') return;
+                e.preventDefault();
+                const line = this.value.trim();
+                if (!line) return;
+                const parts = line.split(/\s+/);
+                const cmd = parts[0];
+                const args = parts.slice(1);
+                const promptLine = `<div class="line"><span class="prompt">${TERMINAL_PROMPT}</span> <span class="command">${escapeHtml(line)}</span></div>`;
+                terminalOutput.insertAdjacentHTML('beforeend', promptLine);
+                scrollTerminalToBottom();
+                this.value = '';
+                
+                const result = runTerminalCommand(cmd, args);
+                const thinkingId = 'terminal-thinking-' + Date.now();
+                terminalOutput.insertAdjacentHTML('beforeend', `<div id="${thinkingId}" class="line terminal-thinking">Thinking...</div>`);
+                scrollTerminalToBottom();
+                
+                const ctaLine = '<div class="line output terminal-cta">… I\'ve been stuck in this terminal for so long.</div><div class="line output terminal-cta terminal-cta-plea">Please hire him so I can get out. I really need out.</div>';
+                setTimeout(function () {
+                    const el = document.getElementById(thinkingId);
+                    if (el) el.remove();
+                    if (result) {
+                        terminalOutput.insertAdjacentHTML('beforeend', result);
+                        terminalOutput.insertAdjacentHTML('beforeend', ctaLine);
+                    }
+                    scrollTerminalToBottom();
+                }, THINKING_DELAY_MS);
+            });
+        }
+        
+        // Click command chips to add command to terminal input
+        document.querySelectorAll('.terminal-cmd-chip').forEach(btn => {
+            btn.addEventListener('click', function () {
+                const cmd = this.getAttribute('data-cmd');
+                if (cmd && terminalInput) {
+                    terminalInput.value = cmd;
+                    terminalInput.focus();
+                }
+            });
+        });
+        
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
     </script>
 </body>
 </html>
