@@ -533,19 +533,23 @@
                             <ul class="space-y-2 text-gray-300">
                                 <li class="flex items-start gap-2">
                                     <span class="text-indigo-400 mt-1">•</span>
-                                    <span>Owned the design and development of backend microservices powering an internal enterprise AI assistant ("Cassidy"), supporting secure question answering over sensitive corporate data with fine-grained access controls and compliance requirements</span>
+                                    <span>Led the design and development of distributed backend microservices powering an internal enterprise AI assistant ("Cassidy"), supporting secure question answering over sensitive corporate data with fine-grained access controls and compliance requirements.</span>
                                 </li>
                                 <li class="flex items-start gap-2">
                                     <span class="text-indigo-400 mt-1">•</span>
-                                    <span>Built a Kafka-based ingestion and embedding service to process data from multiple enterprise systems, generate vector embeddings, and persist them in a vector database to enable low-latency semantic retrieval</span>
+                                    <span>Designed a hybrid retrieval architecture combining vector search with graph-based context expansion, modeling semantic relationships between document chunks to enable multi-hop retrieval, improve relevance ranking, and reduce context fragmentation for complex queries.</span>
                                 </li>
                                 <li class="flex items-start gap-2">
                                     <span class="text-indigo-400 mt-1">•</span>
-                                    <span>Designed service integrations and automated workflows using ServiceNow and Azure, enabling controlled onboarding of organizations, administrative units, and LLM access with auditable approvals</span>
+                                    <span>Built a Kafka-based ingestion and embedding service with idempotent consumers, schema versioning, backpressure handling, supporting horizontal scaling and reducing p99 processing latency under peak load to process data from multiple enterprise systems, generate vector embeddings, and persist them in a vector database to enable low-latency semantic retrieval.</span>
                                 </li>
                                 <li class="flex items-start gap-2">
                                     <span class="text-indigo-400 mt-1">•</span>
-                                    <span>Ensured compliance-ready deployment of AI services by enforcing data isolation, authorization boundaries, and auditability across enterprise systems</span>
+                                    <span>Designed service integrations and automated workflows using ServiceNow and Azure, enabling controlled onboarding of organizations, administrative units, and LLM access with auditable approvals.</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-indigo-400 mt-1">•</span>
+                                    <span>Ensured compliance-ready deployment of AI services by enforcing data isolation, authorization boundaries, and auditability across enterprise systems.</span>
                                 </li>
                             </ul>
                         </div>
@@ -569,19 +573,23 @@
                             <ul class="space-y-2 text-gray-300">
                                 <li class="flex items-start gap-2">
                                     <span class="text-pink-400 mt-1">•</span>
-                                    <span>Designed and built a dynamic page-layout rendering service enabling real-time personalization of products, offers, and UI widgets based on user context and behavior signals</span>
+                                    <span>Architected real time personalization platform handling 20K requests/min (~330 RPS avg, ~1.3K RPS peak) with sub-100ms latency SLO, enabling dynamic page rendering and A/B experimentation across 25 million monthly users by personalisation of products, offers, and UI widgets based on user segment and behavior signals on the webpage thereby increasing the engagement of the user.</span>
                                 </li>
                                 <li class="flex items-start gap-2">
                                     <span class="text-pink-400 mt-1">•</span>
-                                    <span>Architected and scaled an ad-serving and recommendation systems for cross-sell and upsell use cases, contributing ₹1Cr+ in monthly incremental revenue</span>
+                                    <span>Designed low-latency in-memory decision engine to eliminate combinatorial cache-key explosion (~100M+ combinations), implementing predicate-based rule evaluation with bitset-driven segment matching and Bloom filters for efficient eligibility validation, improving p95 latency from ~180ms to &lt;80ms under peak traffic.</span>
                                 </li>
                                 <li class="flex items-start gap-2">
                                     <span class="text-pink-400 mt-1">•</span>
-                                    <span>Implemented graph-based product discovery in e commerce website using Neo4j to model product hierarchies and relationships, enabling complex filtering and low-latency traversal queries at scale</span>
+                                    <span>Architected and scaled an ad-serving and search system for cross-sell and upsell use cases, contributing ₹1Cr+ in monthly incremental revenue.</span>
                                 </li>
                                 <li class="flex items-start gap-2">
                                     <span class="text-pink-400 mt-1">•</span>
-                                    <span>Participated in architectural discussions and peer reviews to improve system scalability and maintainability</span>
+                                    <span>Implemented graph-based product discovery microservice using Neo4j to model product hierarchies and relationships, enabling complex filtering and low-latency traversal queries at scale.</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-pink-400 mt-1">•</span>
+                                    <span>Supported autoscaling Kubernetes deployment (30–50 pods), ensuring stable performance during traffic spikes up to 4x baseline load.</span>
                                 </li>
                             </ul>
                         </div>
@@ -605,23 +613,23 @@
                             <ul class="space-y-2 text-gray-300">
                                 <li class="flex items-start gap-2">
                                     <span class="text-blue-400 mt-1">•</span>
-                                    <span>Led performance optimization of a high-volume communication platform delivering WhatsApp, email, and SMS notifications at scale, improving throughput and system stability</span>
+                                    <span>Re-architected high-volume notification microservice delivering WhatsApp, email, and SMS notifications at scale by introducing worker scaling and queue partitioning strategies, improving throughput and system stability and reducing lag under peak traffic to support 50M events a day.</span>
                                 </li>
                                 <li class="flex items-start gap-2">
                                     <span class="text-blue-400 mt-1">•</span>
-                                    <span>Drove API and database optimizations across a seller-facing monolith, reducing request latency and improving overall service responsiveness</span>
+                                    <span>Drove REST API and database optimizations like concurrency-safe processing and retry mechanisms (idempotent handling, failure recovery, backoff strategies) across a seller-facing monolith, reducing request latency and improving overall service responsiveness.</span>
                                 </li>
                                 <li class="flex items-start gap-2">
                                     <span class="text-blue-400 mt-1">•</span>
-                                    <span>Built an event-driven marketing data pipeline to capture and process user behaviour signals for targeted communication and analytics use cases</span>
+                                    <span>Built an event-driven marketing data microservice (~10K events/day), enabling real-time capture of user behaviour signals for targeted communication workflows.</span>
                                 </li>
                                 <li class="flex items-start gap-2">
                                     <span class="text-blue-400 mt-1">•</span>
-                                    <span>Hardened billing and payment execution paths to ensure transactional correctness under high concurrency</span>
+                                    <span>Hardened billing and payment execution paths to ensure transactional correctness under high concurrency.</span>
                                 </li>
                                 <li class="flex items-start gap-2">
                                     <span class="text-blue-400 mt-1">•</span>
-                                    <span>Developed scalable search infrastructure using Elasticsearch to enable low-latency access to orders and customer data</span>
+                                    <span>Designed and implemented large-scale Elasticsearch typeahead search supporting prefix queries across email, phone, and order IDs, leveraging time-partitioned indices, shard-aware routing, and hot-tier optimization to maintain &lt; 700ms p95 latency from 2s across 800+ million indexed orders while enabling real-time aggregations.</span>
                                 </li>
                             </ul>
                         </div>
@@ -645,19 +653,23 @@
                             <ul class="space-y-2 text-gray-300">
                                 <li class="flex items-start gap-2">
                                     <span class="text-cyan-400 mt-1">•</span>
-                                    <span>Designed and implemented usage-based billing logic for VoIP calling services, supporting multiple payment plans and accurate metering of call activity</span>
+                                    <span>Designed and implemented usage-based billing logic for VoIP calling services, supporting multiple payment plans and accurate metering of call activity.</span>
                                 </li>
                                 <li class="flex items-start gap-2">
                                     <span class="text-cyan-400 mt-1">•</span>
-                                    <span>Built a web-based management dashboard for configuring and monitoring VoIP services including IVR flows, outbound call campaigns, and call routing rules</span>
+                                    <span>Built a web-based management dashboard for configuring and monitoring VoIP services including IVR flows, outbound call campaigns, and call routing rules.</span>
                                 </li>
                                 <li class="flex items-start gap-2">
                                     <span class="text-cyan-400 mt-1">•</span>
-                                    <span>Integrated AWS S3 and Amazon Polly (Text-to-Speech) to generate, store, and manage audio recordings used dynamically within call flow pipelines</span>
+                                    <span>Integrated Razor Pay &amp; Stripe payment gateways in the distributed billing service, webhook handling etc.</span>
                                 </li>
                                 <li class="flex items-start gap-2">
                                     <span class="text-cyan-400 mt-1">•</span>
-                                    <span>Contributed to performance optimization and reliability improvements across telephony pipelines by identifying bottlenecks and hardening critical execution paths</span>
+                                    <span>Integrated AWS S3 and Amazon Polly (Text-to-Speech) to generate, store, and manage audio recordings used dynamically within call flow pipelines.</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-cyan-400 mt-1">•</span>
+                                    <span>Contributed to performance optimization and reliability improvements across telephony pipelines by identifying bottlenecks and hardening critical execution paths.</span>
                                 </li>
                             </ul>
                         </div>
