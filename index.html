@@ -3,1279 +3,806 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shikhar Tiwari - Portfolio</title>
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- AOS Animation Library -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    
-    <!-- Google Fonts -->
+    <title>Shikhar Tiwari</title>
+    <meta name="description" content="Shikhar Tiwari — software engineer building distributed systems and guardrails for AI agents.">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Mr+Dafoe&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
     <style>
-        * {
-            font-family: 'Inter', sans-serif;
+        :root {
+            --bg: #110720;
+            --fg: #ffffff;
+            --fg-90: rgba(255, 255, 255, 0.9);
+            --fg-80: rgba(255, 255, 255, 0.8);
+            --fg-70: rgba(255, 255, 255, 0.7);
+            --fg-60: rgba(255, 255, 255, 0.6);
+            --rule: rgba(255, 255, 255, 0.1);
+            --purple-300: #d9b3ff;
+            --purple-400: #c07eff;
+            --purple-500: #ac4bff;
+            --purple-700: #8200da;
+            --purple-900: #59168b;
+            --purple-950: #3c0366;
+            --violet-400: #a685ff;
+            --violet-600: #7f22fe;
+            --slate-950: #020618;
+            --blue-400: #54a2ff;
+            --sans: 'Poppins', Arial, Helvetica, sans-serif;
+            --mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+            color-scheme: dark;
         }
-        
+
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: 72px; }
         body {
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
-            background-attachment: fixed;
-        }
-        
-        .gradient-text {
-            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .glass-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .glass-card-hover:hover {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(99, 102, 241, 0.5);
-            transform: translateY(-4px);
-        }
-        
-        .repo-card {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .repo-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
-        }
-        
-        .glow-effect {
-            box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
-        }
-        
-        .spinner {
-            border: 3px solid rgba(99, 102, 241, 0.1);
-            border-top-color: #6366f1;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-        
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        
-        .gradient-border {
-            position: relative;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 16px;
-        }
-        
-        .gradient-border::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: 16px;
-            padding: 2px;
-            background: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899);
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            mask-composite: exclude;
-            opacity: 0;
-            transition: opacity 0.3s;
-            pointer-events: none;
-        }
-        
-        .gradient-border:hover::before {
-            opacity: 1;
-        }
-        
-        .repo-description {
-            scrollbar-width: thin;
-            scrollbar-color: rgba(99, 102, 241, 0.5) transparent;
-        }
-        .repo-description::-webkit-scrollbar {
-            width: 6px;
-        }
-        .repo-description::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        .repo-description::-webkit-scrollbar-thumb {
-            background: rgba(99, 102, 241, 0.5);
-            border-radius: 3px;
-        }
-        .repo-description::-webkit-scrollbar-thumb:hover {
-            background: rgba(99, 102, 241, 0.7);
-        }
-        
-        /* Expandable repo card */
-        .repo-card-clickable {
-            cursor: pointer;
-            transition: opacity 0.35s ease, transform 0.35s ease, padding 0.35s ease, margin 0.35s ease;
-        }
-        .repo-card-clickable .repo-details {
-            max-height: 0;
-            overflow: hidden;
-            opacity: 0;
-            transform: translateY(-20px);
-            transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease, transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .repo-card-clickable.expanded .repo-details {
-            max-height: 420px;
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .repo-card-clickable .repo-chevron {
-            transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .repo-card-clickable.expanded .repo-chevron {
-            transform: rotate(180deg);
-        }
-        .repo-card-clickable .repo-preview {
-            transition: opacity 0.25s ease;
-        }
-        .repo-card-clickable.expanded .repo-preview {
-            opacity: 0.7;
-        }
-        /* When one card is expanded, slide out and hide the others */
-        #repos-container.has-expanded .repo-card-clickable:not(.expanded) {
-            max-height: 0;
-            min-height: 0;
-            opacity: 0;
-            transform: scale(0.95) translateY(-16px);
-            overflow: hidden;
-            padding-top: 0;
-            padding-bottom: 0;
             margin: 0;
-            pointer-events: none;
-            border: none;
-            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease, transform 0.35s ease, padding 0.35s ease, margin 0.35s ease;
+            background: var(--bg);
+            color: var(--fg);
+            font: 16px/1.65 var(--sans);
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
         }
-        /* Expanded card takes full width when others are hidden */
-        #repos-container.has-expanded .repo-card-clickable.expanded {
-            grid-column: 1 / -1;
-            transform-origin: left center;
-            animation: repo-expand-full-width 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        a { color: var(--purple-400); text-decoration: none; transition: color .2s; }
+        a:hover { color: var(--purple-300); }
+        .container { max-width: 72rem; margin: 0 auto; padding-inline: 24px; }
+        .ico { width: 18px; height: 18px; flex-shrink: 0; }
+
+        /* ---------- Nav ---------- */
+        header.site {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+            background: rgba(17, 7, 32, 0.8);
+            backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+            border-bottom: 1px solid var(--rule);
         }
-        @keyframes repo-expand-full-width {
-            from {
-                opacity: 0.88;
-                transform: scaleX(0.2);
-            }
-            to {
-                opacity: 1;
-                transform: scaleX(1);
-            }
+        header.site .container { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 12px; }
+        .logo { font-family: 'Mr Dafoe', cursive; font-size: 34px; line-height: 1; color: var(--fg); }
+        .logo:hover { color: var(--purple-400); }
+        header.site ul { display: flex; gap: 32px; list-style: none; margin: 0; padding: 0; flex-wrap: wrap; }
+        header.site ul a { color: var(--fg); font-size: 16px; }
+        header.site ul a:hover { color: var(--purple-400); }
+
+        /* ---------- Hero ---------- */
+        #home { min-height: 100vh; display: flex; align-items: center; padding: 120px 0 64px; }
+        .hero-row { display: flex; align-items: center; gap: 32px; }
+        .avatar { position: relative; flex-shrink: 0; width: 300px; height: 300px; display: grid; place-items: center; }
+        .avatar::before {
+            content: ""; position: absolute; inset: -10%;
+            background: radial-gradient(circle at 50% 55%, rgba(130, 0, 218, .55) 0%, rgba(89, 22, 139, .35) 35%, transparent 68%);
+            filter: blur(8px);
         }
-        .repo-stat-highlight {
-            background: rgba(99, 102, 241, 0.15);
-            border: 1px solid rgba(99, 102, 241, 0.4);
-            padding: 6px 16px;
-            border-radius: 10px;
-            font-weight: 600;
-            min-width: 56px;
-            justify-content: center;
-            transition: padding 0.3s ease, min-width 0.3s ease, background 0.25s ease, box-shadow 0.25s ease;
-        }
-        .repo-stat-stars-highlight {
-            background: rgba(234, 179, 8, 0.2);
-            border: 1px solid rgba(234, 179, 8, 0.55);
-            color: rgb(253, 224, 71);
-            box-shadow: 0 0 12px rgba(234, 179, 8, 0.2);
-        }
-        .repo-stat-stars-highlight:hover {
-            background: rgba(234, 179, 8, 0.28);
-            box-shadow: 0 0 16px rgba(234, 179, 8, 0.3);
-        }
-        .repo-stat-forks-highlight {
-            background: rgba(59, 130, 246, 0.2);
-            border: 1px solid rgba(59, 130, 246, 0.55);
-            color: rgb(147, 197, 253);
-            box-shadow: 0 0 12px rgba(59, 130, 246, 0.2);
-        }
-        .repo-stat-forks-highlight:hover {
-            background: rgba(59, 130, 246, 0.28);
-            box-shadow: 0 0 16px rgba(59, 130, 246, 0.3);
-        }
-        
-        /* Terminal section */
-        .terminal-container {
-            font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
-            background: #0d1117;
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-        }
-        .terminal-title-bar {
-            background: #161b22;
-            padding: 10px 16px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-        }
-        .terminal-dot { width: 12px; height: 12px; border-radius: 50%; }
-        .terminal-dot.red { background: #ff5f56; }
-        .terminal-dot.yellow { background: #ffbd2e; }
-        .terminal-dot.green { background: #27ca40; }
-        .terminal-output {
-            padding: 20px;
-            min-height: 280px;
-            max-height: 400px;
-            overflow-y: auto;
-            font-size: 14px;
-            line-height: 1.6;
-        }
-        .terminal-output .line { margin-bottom: 6px; }
-        .terminal-output .prompt { color: #7ee787; }
-        .terminal-output .command { color: #79c0ff; }
-        .terminal-output .output { color: #c9d1d9; }
-        .terminal-output .output a { color: #58a6ff; text-decoration: underline; }
-        .terminal-output .error { color: #ff7b72; }
-        .terminal-input-line {
-            display: flex;
-            align-items: center;
-            padding: 12px 20px;
-            background: #161b22;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
-        }
-        .terminal-input-line .prompt { color: #7ee787; margin-right: 8px; flex-shrink: 0; }
-        .terminal-input-line input {
-            flex: 1;
-            background: transparent;
-            border: none;
-            color: #c9d1d9;
-            font-family: inherit;
-            font-size: 14px;
-            outline: none;
-        }
-        .terminal-input-line input::placeholder { color: #484f58; }
-        .terminal-cursor {
-            display: inline-block;
-            width: 8px;
-            height: 16px;
-            background: #7ee787;
-            margin-left: 2px;
-            animation: terminal-blink 1s step-end infinite;
-        }
-        @keyframes terminal-blink {
-            50% { opacity: 0; }
-        }
-        .terminal-cmd-chip {
-            font-family: 'JetBrains Mono', 'Fira Code', monospace;
-            font-size: 13px;
+        .avatar svg { position: relative; width: 220px; height: auto; filter: drop-shadow(0 20px 30px rgba(0,0,0,.45)); }
+        .avatar .cursor { animation: blink 1s step-end infinite; }
+        @keyframes blink { 50% { opacity: 0; } }
+
+        .hero-copy { flex: 1; }
+        .hello-wrap { position: relative; display: inline-block; margin-bottom: 36px; }
+        .hello {
+            position: relative;
+            font-size: 18px; margin: 0;
             padding: 6px 14px;
-            border-radius: 8px;
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            color: #7ee787;
-            cursor: pointer;
-            transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+            background: rgba(255,255,255,.06);
+            border-radius: 10px;
         }
-        .terminal-cmd-chip:hover {
-            background: rgba(126, 231, 135, 0.12);
-            border-color: rgba(126, 231, 135, 0.4);
-            color: #9eea9e;
+        .hello::after {
+            content: ""; position: absolute; left: 28px; bottom: -8px;
+            border-left: 8px solid transparent; border-right: 8px solid transparent;
+            border-top: 8px solid rgba(255,255,255,.06);
         }
-        .terminal-ai-badge {
-            font-size: 10px;
+        .hello span { color: var(--purple-400); }
+        .arrow { position: absolute; left: -108px; top: 2px; width: 100px; height: 72px; color: var(--fg-80); }
+        .pre { font-size: 24px; margin: 0; }
+        .hero-copy h1 {
+            font-size: clamp(44px, 6.4vw, 72px);
             font-weight: 600;
-            padding: 2px 8px;
-            border-radius: 6px;
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.4), rgba(139, 92, 246, 0.4));
-            color: #c4b5fd;
-            margin-left: 8px;
-            letter-spacing: 0.5px;
+            line-height: 1.2;
+            letter-spacing: -0.025em;
+            margin: 0;
         }
-        .terminal-thinking {
-            color: #79c0ff;
-            font-style: italic;
+        .circled { position: relative; display: inline-block; }
+        .circled svg { position: absolute; left: -8%; top: 4%; width: 116%; height: 100%; color: var(--fg-70); overflow: visible; pointer-events: none; }
+        .grad {
+            background: linear-gradient(to right, var(--violet-600), var(--violet-400), var(--violet-600));
+            -webkit-background-clip: text; background-clip: text; color: transparent;
         }
-        .terminal-cta {
-            color: #64748b;
-            font-style: italic;
-            opacity: 0.9;
+        .tagline { color: var(--fg-80); margin: 6px 0 0; }
+
+        .intro { padding-top: 60px; }
+        .typed { font-size: clamp(32px, 4.5vw, 48px); font-weight: 700; margin: 0 0 4px; min-height: 1.3em; line-height: 1.3; }
+        .typed .caret { display: inline-block; width: 4px; height: .9em; background: var(--fg-80); vertical-align: -0.1em; margin-left: 4px; animation: blink 1s step-end infinite; }
+        .currently { font-size: clamp(17px, 2vw, 20px); color: var(--fg-90); letter-spacing: .02em; margin: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+        .currently a { color: var(--blue-400); font-weight: 600; display: inline-flex; align-items: center; gap: 8px; }
+        .currently a:hover { color: #8ec5ff; }
+        .co-badge { width: 22px; height: 22px; border-radius: 6px; background: var(--slate-950); border: 1px solid rgba(84,162,255,.4); display: grid; place-items: center; font-size: 12px; font-weight: 700; color: var(--blue-400); }
+        .bio { font-size: 18px; color: var(--fg-80); max-width: 42rem; margin: 48px 0 28px; }
+        .pills { display: flex; flex-wrap: wrap; gap: 12px; padding: 0; margin: 0; list-style: none; }
+
+        /* ---------- Pill / round links ---------- */
+        .pill, .round {
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            background: rgba(255,255,255,.1);
+            border: 1px solid rgba(172, 75, 255, .3);
+            color: var(--fg);
+            transition: background .2s, border-color .2s;
         }
-        .terminal-cta.terminal-cta-plea {
-            color: #94a3b8;
-            font-size: 0.95em;
-            margin-top: 2px;
+        .pill { padding: 8px 18px; border-radius: 999px; font-size: 14px; }
+        .round { width: 40px; height: 40px; border-radius: 50%; }
+        .pill:hover, .round:hover { background: rgba(255,255,255,.2); border-color: rgba(172, 75, 255, .5); color: var(--fg); }
+
+        /* ---------- Sections ---------- */
+        section.block { padding: 80px 0; }
+        .section-title { font-size: clamp(36px, 5vw, 48px); font-weight: 700; text-align: center; line-height: 1.2; margin: 0 0 48px; }
+
+        /* ---------- Experience ---------- */
+        .exp-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; align-items: start; }
+        .exp-card {
+            background: linear-gradient(to right, var(--slate-950), var(--purple-950), var(--slate-950));
+            border-top: 3px solid var(--purple-700);
+            border-radius: 12px;
+            padding: 24px;
+            display: flex; gap: 20px; align-items: flex-start;
+            transition: box-shadow .3s;
+        }
+        .exp-card:hover { box-shadow: 0 25px 50px -12px var(--purple-900); }
+        .exp-card.wide { grid-column: 1 / -1; }
+        .co-tile {
+            flex-shrink: 0; width: 88px; height: 88px; border-radius: 16px;
+            background: radial-gradient(circle at 30% 25%, rgba(192,126,255,.35), transparent 60%), var(--slate-950);
+            border: 1px solid rgba(172,75,255,.3);
+            display: grid; place-items: center;
+            font-size: 34px; font-weight: 700; color: var(--purple-300);
+        }
+        .exp-card h3 { font-size: 20px; font-weight: 600; margin: 0 0 2px; line-height: 1.3; }
+        .exp-card .org { color: var(--purple-400); font-weight: 500; font-size: 15px; margin: 0; }
+        .exp-card .org .note { color: var(--fg-60); font-weight: 400; }
+        .exp-card .when { color: var(--fg-60); font-size: 13px; margin: 2px 0 12px; }
+        .exp-card .summary { color: var(--fg-70); font-size: 14px; margin: 0 0 14px; }
+        .exp-card details ul { margin: 0 0 12px; padding-left: 18px; }
+        .exp-card details li { color: var(--fg-70); font-size: 14px; margin-bottom: 8px; }
+        .exp-card details li::marker { color: var(--purple-400); }
+        .exp-card summary {
+            list-style: none; cursor: pointer; display: inline-block;
+            color: var(--purple-400); font-weight: 500; font-size: 14px; letter-spacing: .02em;
+        }
+        .exp-card summary::-webkit-details-marker { display: none; }
+        .exp-card summary:hover { color: var(--purple-300); }
+        .exp-card summary .less { display: none; }
+        .exp-card details[open] summary .more { display: none; }
+        .exp-card details[open] summary .less { display: inline; }
+
+        /* ---------- Featured projects ---------- */
+        .feature { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; margin-bottom: 96px; }
+        .feature:last-child { margin-bottom: 0; }
+        .feature .text { position: relative; z-index: 2; }
+        .feature.flip .text { order: 2; }
+        .eyebrow { color: var(--purple-400); font-size: 20px; font-weight: 500; margin: 0 0 8px; }
+        .feature h3 { font-size: clamp(28px, 3.4vw, 36px); font-weight: 700; line-height: 1.2; margin: 0 0 24px; }
+        .glassbox {
+            background: linear-gradient(to bottom right, rgba(255,255,255,.05), rgba(255,255,255,.1)), rgba(22, 11, 40, .88);
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--rule);
+            border-radius: 16px;
+            padding: 28px;
+            box-shadow: 0 10px 25px rgba(0,0,0,.3);
+            margin-bottom: 24px;
+            width: 120%;
+        }
+        .feature.flip .glassbox { margin-left: -20%; }
+        .glassbox p { margin: 0; color: var(--fg-90); font-size: 17px; line-height: 1.7; }
+        .glassbox ul { margin: 14px 0 0; padding-left: 18px; }
+        .glassbox li { color: var(--fg-80); font-size: 15px; margin-bottom: 6px; }
+        .glassbox li::marker { color: var(--purple-400); }
+        .stack-line { font-family: var(--mono); font-size: 13px; color: var(--fg-60); margin: 0 0 16px; }
+        .icon-links { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; }
+        .icon-links a { color: var(--fg); display: inline-flex; align-items: center; gap: 8px; font-size: 14px; }
+        .icon-links a:hover { color: var(--purple-400); }
+        .icon-links .ico { width: 22px; height: 22px; }
+
+        .frame { position: relative; width: 100%; aspect-ratio: 4 / 3; border-radius: 16px; overflow: hidden; background: var(--slate-950); padding: 12px; box-shadow: 0 25px 50px -12px rgba(0,0,0,.6); }
+        .frame-inner { position: relative; width: 100%; height: 100%; border-radius: 8px; overflow: hidden; }
+        .frame-inner img { width: 100%; height: 100%; object-fit: cover; object-position: top left; display: block; }
+        .viz { width: 100%; height: 100%; background: radial-gradient(circle at 70% 20%, rgba(130,0,218,.35), transparent 55%), #0b0618; }
+        .viz svg { width: 100%; height: 100%; display: block; }
+        .mock-term { height: 100%; background: radial-gradient(circle at 85% 10%, rgba(130,0,218,.25), transparent 50%), #0b0618; font: 13px/1.7 var(--mono); color: var(--fg-80); padding: 18px 20px; overflow: hidden; }
+        .mock-term .bar { display: flex; gap: 6px; margin-bottom: 14px; }
+        .mock-term .bar i { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,.18); }
+        .mock-term .gap { height: 10px; }
+        .mock-term .p { color: var(--purple-400); }
+        .mock-term .ok { color: #7ee2a8; }
+        .mock-term .no { color: #ff8a8a; }
+        .mock-term .dim { color: var(--fg-60); }
+
+        /* ---------- Open source ---------- */
+        #repos-container { list-style: none; margin: 0; padding: 0; display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr)); }
+        #repos-container li.repo {
+            background: linear-gradient(to right, var(--slate-950), var(--purple-950), var(--slate-950));
+            border-top: 3px solid var(--purple-700);
+            border-radius: 12px; padding: 24px;
+            display: flex; flex-direction: column;
+            transition: box-shadow .3s;
+        }
+        #repos-container li.repo:hover { box-shadow: 0 25px 50px -12px var(--purple-900); }
+        .repo h3 { font-size: 18px; font-weight: 600; margin: 0 0 8px; word-break: break-word; }
+        .repo .desc { color: var(--fg-70); font-size: 14px; margin: 0 0 16px; }
+        .repo .meta { color: var(--fg-60); font-size: 13px; margin: auto 0 10px; }
+        .repo a.more { font-weight: 500; font-size: 14px; letter-spacing: .02em; }
+        .status { color: var(--fg-70); text-align: center; grid-column: 1 / -1; }
+
+        /* ---------- Stack ---------- */
+        .stack { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); gap: 16px; }
+        .stack div {
+            background: linear-gradient(to bottom right, rgba(255,255,255,.05), rgba(255,255,255,.1));
+            border: 1px solid var(--rule); border-radius: 16px; padding: 20px;
+        }
+        .stack h3 { font-size: 13px; font-weight: 600; color: var(--purple-400); margin: 0 0 6px; text-transform: uppercase; letter-spacing: .08em; }
+        .stack p { color: var(--fg-80); font-size: 15px; margin: 0; }
+
+        /* ---------- Contact ---------- */
+        footer#contact { border-top: 1px solid var(--rule); padding: 64px 0 40px; }
+        .contact-head { text-align: center; margin-bottom: 40px; }
+        .contact-head .section-title { margin-bottom: 24px; }
+        .contact-head p { color: var(--fg-80); max-width: 42rem; margin: 0 auto 24px; }
+        .contact-head .mail { font-size: 17px; }
+        .socials { display: flex; justify-content: center; gap: 24px; margin-top: 32px; }
+        .terminal { max-width: 48rem; margin: 48px auto 0; }
+        .terminal-container {
+            font-family: var(--mono);
+            background: var(--slate-950);
+            border: 1px solid var(--rule);
+            border-top: 3px solid var(--purple-700);
+            border-radius: 12px; overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(89, 22, 139, .6);
+        }
+        .terminal-title-bar { display: flex; justify-content: space-between; padding: 10px 16px; font-size: 12px; color: var(--fg-60); border-bottom: 1px solid var(--rule); }
+        .terminal-output { padding: 16px; min-height: 200px; max-height: 360px; overflow-y: auto; font-size: 13.5px; line-height: 1.6; color: var(--fg-80); }
+        .terminal-output .line { margin-bottom: 4px; white-space: pre-wrap; }
+        .terminal-output .prompt, .terminal-input-line .prompt { color: var(--purple-400); }
+        .terminal-output .command { color: var(--fg); }
+        .terminal-output .output a { color: var(--purple-400); text-decoration: underline; }
+        .terminal-output .error { color: #ff8a8a; }
+        .terminal-thinking, .terminal-cta { color: var(--fg-60); font-style: italic; }
+        .terminal-input-line { display: flex; align-items: center; padding: 12px 16px; border-top: 1px solid var(--rule); font-size: 13.5px; }
+        .terminal-input-line .prompt { margin-right: 8px; flex-shrink: 0; }
+        .terminal-input-line input { flex: 1; min-width: 0; background: transparent; border: 0; outline: none; color: var(--fg); font: inherit; }
+        .terminal-input-line input::placeholder { color: rgba(255,255,255,.35); }
+        .cmd-list { margin: 16px 0 0; display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+        .terminal-cmd-chip { font: 13px var(--mono); padding: 5px 14px; border-radius: 999px; background: rgba(255,255,255,.1); border: 1px solid rgba(172, 75, 255, .3); color: var(--fg); cursor: pointer; transition: background .2s, border-color .2s; }
+        .terminal-cmd-chip:hover { background: rgba(255,255,255,.2); border-color: rgba(172, 75, 255, .5); }
+        .copyright { text-align: center; margin-top: 48px; padding-top: 32px; border-top: 1px solid var(--rule); color: var(--fg-60); font-size: 14px; }
+
+        /* ---------- Responsive ---------- */
+        @media (max-width: 1023px) {
+            .hero-row { flex-direction: column; text-align: center; gap: 16px; }
+            .avatar { width: 240px; height: 240px; }
+            .avatar svg { width: 180px; }
+            .arrow { display: none; }
+            .hello::after { left: 50%; transform: translateX(-50%); }
+            .intro { text-align: center; }
+            .currently, .pills { justify-content: center; }
+            .bio { margin-inline: auto; }
+            .feature, .feature.flip { grid-template-columns: 1fr; gap: 28px; margin-bottom: 72px; }
+            .feature .text, .feature.flip .text { order: 2; }
+            .glassbox, .feature.flip .glassbox { width: 100%; margin-left: 0; }
+        }
+        @media (max-width: 767px) {
+            .exp-grid { grid-template-columns: 1fr; }
+            .exp-card { flex-direction: column; }
+            .co-tile { width: 64px; height: 64px; font-size: 26px; border-radius: 12px; }
+            header.site ul { gap: 16px; }
+            header.site ul a { font-size: 14px; }
+            .logo { font-size: 28px; }
+            section.block { padding: 64px 0; }
+            #home { padding-top: 104px; }
+            .glassbox { padding: 20px; }
+            .glassbox p { font-size: 16px; }
+            .mock-term { font-size: 11px; padding: 14px; }
+        }
+        @media (max-width: 480px) {
+            header.site ul li:first-child { display: none; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .avatar .cursor, .typed .caret { animation: none; }
         }
     </style>
 </head>
-<body class="min-h-screen text-white">
-    <!-- Navigation -->
-    <nav class="fixed top-0 w-full z-50 glass-card border-b border-white/10">
-        <div class="container mx-auto px-6 py-4">
-            <div class="flex items-center justify-between">
-                <div class="text-xl font-bold gradient-text">ST</div>
-                <div class="flex gap-6">
-                    <a href="#tech" class="text-gray-300 hover:text-white transition-colors">Tech Stack</a>
-                    <a href="#experience" class="text-gray-300 hover:text-white transition-colors">Experience</a>
-                    <a href="#repos" class="text-gray-300 hover:text-white transition-colors">Projects</a>
-                    <a href="#work" class="text-gray-300 hover:text-white transition-colors">Current Work</a>
-                    <a href="#featured" class="text-gray-300 hover:text-white transition-colors">Featured</a>
-                    <a href="#contact-me" class="text-gray-300 hover:text-white transition-colors">Contact Me</a>
-                </div>
-            </div>
-        </div>
-    </nav>
+<body>
+    <!-- Icon sprite -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+        <symbol id="i-gh" viewBox="0 0 24 24"><path fill="currentColor" d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2.2c-3.3.7-4-1.4-4-1.4-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.6 18.3 5 18.3 5c.7 1.7.3 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3"/></symbol>
+        <symbol id="i-in" viewBox="0 0 24 24"><path fill="currentColor" d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></symbol>
+        <symbol id="i-mail" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></g></symbol>
+        <symbol id="i-code" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="m16 18 6-6-6-6M8 6l-6 6 6 6"/></symbol>
+        <symbol id="i-ext" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3"/></symbol>
+        <symbol id="i-book" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2zM22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7z"/></symbol>
+    </svg>
 
-    <!-- Hero Section -->
-    <section class="pt-32 pb-20 px-6">
-        <div class="container mx-auto max-w-4xl text-center" data-aos="fade-up">
-            <div class="mb-8">
-                <div class="w-32 h-32 mx-auto rounded-full bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 p-1 glow-effect">
-                    <div class="w-full h-full rounded-full bg-gray-900 flex items-center justify-center text-5xl">
-                        👋
-                    </div>
-                </div>
-            </div>
-            
-            <h1 class="text-6xl md:text-7xl font-bold mb-6">
-                <span class="gradient-text">Shikhar Tiwari</span>
-            </h1>
-            
-            <p class="text-2xl md:text-3xl text-gray-300 mb-4 font-medium">
-                Senior Software Engineer
-            </p>
-            
-            <p class="text-lg text-gray-400 mb-4 max-w-2xl mx-auto">
-                7+ years building distributed backend and full-stack systems, including AI-powered retrieval, personalization, and recommendation platforms
-            </p>
-            
-            <p class="text-sm text-gray-500 mb-12">
-                New York, NY | (201) 349-6989
-            </p>
-            
-            <div class="flex gap-4 justify-center flex-wrap" data-aos="fade-up" data-aos-delay="200">
-                <a href="mailto:shikhar.tiwari1996@gmail.com" 
-                   target="_blank" 
-                   rel="noopener"
-                   class="glass-card px-6 py-3 rounded-xl flex items-center gap-2 hover:bg-white/10 transition-all group">
-                    <i data-lucide="mail" class="w-5 h-5"></i>
-                    <span>Email</span>
-                </a>
-                <a href="https://www.linkedin.com/in/shikhar-tiwari-4a9ba7142/" 
-                   target="_blank" 
-                   rel="noopener"
-                   class="glass-card px-6 py-3 rounded-xl flex items-center gap-2 hover:bg-white/10 transition-all group">
-                    <i data-lucide="linkedin" class="w-5 h-5"></i>
-                    <span>LinkedIn</span>
-                </a>
-                <a href="https://github.com/shkrwnd" 
-                   target="_blank" 
-                   rel="noopener"
-                   class="glass-card px-6 py-3 rounded-xl flex items-center gap-2 hover:bg-white/10 transition-all group">
-                    <i data-lucide="github" class="w-5 h-5"></i>
-                    <span>GitHub</span>
-                </a>
-                <a href="https://leetcode.com/u/shkrwnd" 
-                   target="_blank" 
-                   rel="noopener"
-                   class="glass-card px-6 py-3 rounded-xl flex items-center gap-2 hover:bg-white/10 transition-all group">
-                    <i data-lucide="code" class="w-5 h-5"></i>
-                    <span>LeetCode</span>
-                </a>
-            </div>
-        </div>
-    </section>
+    <header class="site">
+        <nav class="container">
+            <a class="logo" href="#home" aria-label="Shikhar Tiwari, home">Shikhar</a>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
 
-    <!-- Tech Stack Section -->
-    <section id="tech" class="py-12 px-6">
-        <div class="container mx-auto max-w-6xl">
-            <div class="text-center mb-8" data-aos="fade-up">
-                <h2 class="text-3xl md:text-4xl font-bold mb-2">
-                    <span class="gradient-text">Tech Stack</span>
-                </h2>
-                <p class="text-gray-400 text-sm">Technologies and tools I work with</p>
-            </div>
-            
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3" data-aos="fade-up" data-aos-delay="100">
-                <!-- Languages -->
-                <div class="glass-card rounded-xl p-4 hover:bg-white/5 transition-all">
-                    <div class="flex items-center gap-2 mb-3">
-                        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center">
-                            <i data-lucide="code" class="w-4 h-4 text-white"></i>
-                        </div>
-                        <h3 class="text-sm font-bold text-white">Languages</h3>
+    <main>
+        <!-- ================= Hero ================= -->
+        <section id="home">
+            <div class="container">
+                <div class="hero-row">
+                    <div class="avatar" aria-hidden="true">
+                        <!-- To use a photo instead, replace this <svg> with <img src="assets/me.png" alt=""> -->
+                        <svg viewBox="0 0 220 170" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="2" y="2" width="216" height="166" rx="16" fill="#0b0618" stroke="rgba(192,126,255,.45)" stroke-width="2"/>
+                            <path d="M18 2h184a16 16 0 0 1 16 16v14H2V18A16 16 0 0 1 18 2z" fill="#1a0d33"/>
+                            <circle cx="22" cy="17" r="5" fill="#ff5f56"/><circle cx="38" cy="17" r="5" fill="#ffbd2e"/><circle cx="54" cy="17" r="5" fill="#27ca40"/>
+                            <text x="20" y="66" font-family="JetBrains Mono, monospace" font-size="14" fill="#c07eff">$</text>
+                            <text x="36" y="66" font-family="JetBrains Mono, monospace" font-size="14" fill="#fff">claude --sandbox</text>
+                            <text x="20" y="94" font-family="JetBrains Mono, monospace" font-size="12.5" fill="#7ee2a8">✓ git push: approved</text>
+                            <text x="20" y="118" font-family="JetBrains Mono, monospace" font-size="12.5" fill="#ff8a8a">✗ rm -rf /: blocked</text>
+                            <text x="20" y="148" font-family="JetBrains Mono, monospace" font-size="14" fill="#c07eff">&gt;</text>
+                            <rect class="cursor" x="34" y="136" width="9" height="16" fill="#fff"/>
+                        </svg>
                     </div>
-                    <div class="flex flex-wrap gap-1.5">
-                        <span class="px-2 py-1 rounded text-xs font-medium bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">Python</span>
-                        <span class="px-2 py-1 rounded text-xs font-medium bg-orange-500/20 text-orange-300 border border-orange-500/30">Java</span>
-                        <span class="px-2 py-1 rounded text-xs font-medium bg-blue-500/20 text-blue-300 border border-blue-500/30">TypeScript</span>
-                        <span class="px-2 py-1 rounded text-xs font-medium bg-yellow-500/20 text-yellow-300 border border-yellow-500/30">JavaScript</span>
-                    </div>
-                </div>
-                
-                <!-- Frontend -->
-                <div class="glass-card rounded-xl p-4 hover:bg-white/5 transition-all">
-                    <div class="flex items-center gap-2 mb-3">
-                        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
-                            <i data-lucide="layout" class="w-4 h-4 text-white"></i>
-                        </div>
-                        <h3 class="text-sm font-bold text-white">Frontend</h3>
-                    </div>
-                    <div class="flex flex-wrap gap-1.5">
-                        <span class="px-2 py-1 rounded text-xs font-medium bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">React</span>
-                        <span class="px-2 py-1 rounded text-xs font-medium bg-red-500/20 text-red-300 border border-red-500/30">Angular</span>
-                    </div>
-                </div>
-                
-                <!-- Backend -->
-                <div class="glass-card rounded-xl p-4 hover:bg-white/5 transition-all">
-                    <div class="flex items-center gap-2 mb-3">
-                        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-pink-500 to-red-500 flex items-center justify-center">
-                            <i data-lucide="server" class="w-4 h-4 text-white"></i>
-                        </div>
-                        <h3 class="text-sm font-bold text-white">Backend</h3>
-                    </div>
-                    <div class="flex flex-wrap gap-1.5">
-                        <span class="px-2 py-1 rounded text-xs font-medium bg-green-500/20 text-green-300 border border-green-500/30">FastAPI</span>
-                        <span class="px-2 py-1 rounded text-xs font-medium bg-orange-500/20 text-orange-300 border border-orange-500/30">Spring Boot</span>
-                        <span class="px-2 py-1 rounded text-xs font-medium bg-green-500/20 text-green-300 border border-green-500/30">Node.js</span>
-                        <span class="px-2 py-1 rounded text-xs font-medium bg-red-500/20 text-red-300 border border-red-500/30">Rails</span>
-                        <span class="px-2 py-1 rounded text-xs font-medium bg-red-500/20 text-red-300 border border-red-500/30">Laravel</span>
-                    </div>
-                </div>
-                
-                <!-- Data & Messaging -->
-                <div class="glass-card rounded-xl p-4 hover:bg-white/5 transition-all">
-                    <div class="flex items-center gap-2 mb-3">
-                        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center">
-                            <i data-lucide="database" class="w-4 h-4 text-white"></i>
-                        </div>
-                        <h3 class="text-sm font-bold text-white">Data</h3>
-                    </div>
-                    <div class="flex flex-wrap gap-1.5">
-                        <span class="px-2 py-1 rounded text-xs font-medium bg-blue-500/20 text-blue-300 border border-blue-500/30">PostgreSQL</span>
-                        <span class="px-2 py-1 rounded text-xs font-medium bg-green-500/20 text-green-300 border border-green-500/30">MongoDB</span>
-                        <span class="px-2 py-1 rounded text-xs font-medium bg-red-500/20 text-red-300 border border-red-500/30">Redis</span>
-                        <span class="px-2 py-1 rounded text-xs font-medium bg-orange-500/20 text-orange-300 border border-orange-500/30">Kafka</span>
-                        <span class="px-2 py-1 rounded text-xs font-medium bg-yellow-500/20 text-yellow-300 border border-yellow-500/30">Elasticsearch</span>
-                        <span class="px-2 py-1 rounded text-xs font-medium bg-blue-500/20 text-blue-300 border border-blue-500/30">Neo4j</span>
-                        <span class="px-2 py-1 rounded text-xs font-medium bg-purple-500/20 text-purple-300 border border-purple-500/30">Milvus</span>
-                    </div>
-                </div>
-                
-                <!-- Cloud & AI -->
-                <div class="glass-card rounded-xl p-4 hover:bg-white/5 transition-all">
-                    <div class="flex items-center gap-2 mb-3">
-                        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-500 to-teal-500 flex items-center justify-center">
-                            <i data-lucide="cloud" class="w-4 h-4 text-white"></i>
-                        </div>
-                        <h3 class="text-sm font-bold text-white">Cloud & AI</h3>
-                    </div>
-                    <div class="flex flex-wrap gap-1.5">
-                        <span class="px-2 py-1 rounded text-xs font-medium bg-orange-500/20 text-orange-300 border border-orange-500/30">AWS</span>
-                        <span class="px-2 py-1 rounded text-xs font-medium bg-blue-500/20 text-blue-300 border border-blue-500/30">GCP</span>
-                        <span class="px-2 py-1 rounded text-xs font-medium bg-blue-500/20 text-blue-300 border border-blue-500/30">Azure</span>
-                        <span class="px-2 py-1 rounded text-xs font-medium bg-blue-500/20 text-blue-300 border border-blue-500/30">Docker</span>
-                        <span class="px-2 py-1 rounded text-xs font-medium bg-blue-500/20 text-blue-300 border border-blue-500/30">K8s</span>
-                        <span class="px-2 py-1 rounded text-xs font-medium bg-orange-500/20 text-orange-300 border border-orange-500/30">PyTorch</span>
-                        <span class="px-2 py-1 rounded text-xs font-medium bg-orange-500/20 text-orange-300 border border-orange-500/30">TensorFlow</span>
-                        <span class="px-2 py-1 rounded text-xs font-medium bg-purple-500/20 text-purple-300 border border-purple-500/30">RAG</span>
-                    </div>
-                </div>
-                
-                <!-- Certifications -->
-                <div class="glass-card rounded-xl p-4 hover:bg-white/5 transition-all">
-                    <div class="flex items-center gap-2 mb-3">
-                        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-teal-500 to-green-500 flex items-center justify-center">
-                            <i data-lucide="award" class="w-4 h-4 text-white"></i>
-                        </div>
-                        <h3 class="text-sm font-bold text-white">Certs</h3>
-                    </div>
-                    <div class="flex flex-wrap gap-1.5">
-                        <span class="px-2 py-1 rounded text-xs font-medium bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">DL Nanodegree</span>
-                        <span class="px-2 py-1 rounded text-xs font-medium bg-green-500/20 text-green-300 border border-green-500/30">Android Dev</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Professional Experience Section -->
-    <section id="experience" class="py-20 px-6">
-        <div class="container mx-auto max-w-6xl">
-            <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="text-4xl md:text-5xl font-bold mb-4">
-                    <span class="gradient-text">Professional Experience</span>
-                </h2>
-                <p class="text-gray-400 text-lg">7+ years of building production systems</p>
-            </div>
-            
-            <div class="space-y-6" data-aos="fade-up" data-aos-delay="100">
-                <!-- Experience 1: Walmart Global Tech -->
-                <div class="glass-card rounded-2xl p-8 hover:bg-white/5 transition-all border-l-4 border-indigo-500">
-                    <div class="flex items-start gap-4">
-                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center flex-shrink-0">
-                            <i data-lucide="briefcase" class="w-6 h-6 text-white"></i>
+                    <div class="hero-copy">
+                        <div class="hello-wrap">
+                            <svg class="arrow" viewBox="0 0 100 72" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M96 14 C 64 6, 30 20, 16 60"/>
+                                <path d="M7 50 L 16 62 L 27 53"/>
+                            </svg>
+                            <p class="hello">Hello! I Am <span>Shikhar Tiwari</span></p>
                         </div>
-                        <div class="flex-1">
-                            <div class="flex items-start justify-between mb-3 flex-wrap gap-2">
-                                <div>
-                                    <h3 class="text-xl font-bold text-white mb-1">Software Developer 3</h3>
-                                    <p class="text-indigo-400 font-medium mb-2">Walmart Global Tech</p>
-                                </div>
-                                <span class="text-gray-400 text-sm">Aug 2023 - Dec 2024</span>
-                            </div>
-                            <ul class="space-y-2 text-gray-300">
-                                <li class="flex items-start gap-2">
-                                    <span class="text-indigo-400 mt-1">•</span>
-                                    <span>Led the design and development of distributed backend microservices powering an internal enterprise AI assistant ("Cassidy"), supporting secure question answering over sensitive corporate data with fine-grained access controls and compliance requirements.</span>
-                                </li>
-                                <li class="flex items-start gap-2">
-                                    <span class="text-indigo-400 mt-1">•</span>
-                                    <span>Designed a hybrid retrieval architecture combining vector search with graph-based context expansion, modeling semantic relationships between document chunks to enable multi-hop retrieval, improve relevance ranking, and reduce context fragmentation for complex queries.</span>
-                                </li>
-                                <li class="flex items-start gap-2">
-                                    <span class="text-indigo-400 mt-1">•</span>
-                                    <span>Built a Kafka-based ingestion and embedding service with idempotent consumers, schema versioning, backpressure handling, supporting horizontal scaling and reducing p99 processing latency under peak load to process data from multiple enterprise systems, generate vector embeddings, and persist them in a vector database to enable low-latency semantic retrieval.</span>
-                                </li>
-                                <li class="flex items-start gap-2">
-                                    <span class="text-indigo-400 mt-1">•</span>
-                                    <span>Designed service integrations and automated workflows using ServiceNow and Azure, enabling controlled onboarding of organizations, administrative units, and LLM access with auditable approvals.</span>
-                                </li>
-                                <li class="flex items-start gap-2">
-                                    <span class="text-indigo-400 mt-1">•</span>
-                                    <span>Ensured compliance-ready deployment of AI services by enforcing data isolation, authorization boundaries, and auditability across enterprise systems.</span>
-                                </li>
+                        <p class="pre">An engineer who</p>
+                        <h1>Puts AI agents<br>in a <span class="circled"><svg viewBox="0 0 240 110" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" preserveAspectRatio="none" aria-hidden="true"><path d="M30 18 C 90 -2, 210 0, 232 40 C 250 80, 150 108, 70 100 C 10 94, -6 56, 22 26 C 40 10, 80 6, 120 8"/></svg><span class="grad">sandbox</span></span>...</h1>
+                        <p class="tagline">Because autonomy without guardrails is just a liability.</p>
+                    </div>
+                </div>
+
+                <div class="intro">
+                    <p class="typed" aria-live="polite">I'm a <span id="typed-text"></span><span class="caret"></span></p>
+                    <p class="currently">
+                        <span>Most recently, I was Co-Founder &amp; CTO at</span>
+                        <a href="https://outhora.com" target="_blank" rel="noopener"><span class="co-badge">O</span>Outhora,</a>
+                    </p>
+                    <p class="bio">7+ years building distributed backend and full-stack systems, including AI-powered retrieval, personalization, and recommendation platforms. Previously at Walmart Global Tech, Pharmeasy, and Shiprocket. Based in New York.</p>
+                    <ul class="pills">
+                        <li><a class="pill" href="mailto:shikhar.tiwari1996@gmail.com"><svg class="ico"><use href="#i-mail"/></svg>Email</a></li>
+                        <li><a class="pill" href="https://www.linkedin.com/in/shikhar-tiwari-4a9ba7142/" target="_blank" rel="noopener"><svg class="ico"><use href="#i-in"/></svg>LinkedIn</a></li>
+                        <li><a class="pill" href="https://github.com/shkrwnd" target="_blank" rel="noopener"><svg class="ico"><use href="#i-gh"/></svg>GitHub</a></li>
+                        <li><a class="pill" href="https://leetcode.com/u/shkrwnd" target="_blank" rel="noopener"><svg class="ico"><use href="#i-code"/></svg>LeetCode</a></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= Experience ================= -->
+        <section id="experience" class="block">
+            <div class="container">
+                <h2 class="section-title">Work Experience</h2>
+                <div class="exp-grid">
+
+                    <article class="exp-card wide">
+                        <div class="co-tile" aria-hidden="true">O</div>
+                        <div>
+                            <h3>Co-Founder &amp; CTO</h3>
+                            <p class="org"><a href="https://outhora.com" target="_blank" rel="noopener">Outhora.com</a> <span class="note">· Pre-revenue, 2 pilot clients</span></p>
+                            <p class="when">Feb 2026 – Aug 2026</p>
+                            <p class="summary">Co-Founded and built Outhora.com, the control &amp; authorization layer between AI agents and the systems they act on: every agent action is intercepted in real time and approved, blocked, or escalated to a human before it executes.</p>
+                            <details>
+                                <summary><span class="more">LEARN MORE →</span><span class="less">SHOW LESS ↑</span></summary>
+                                <ul>
+                                    <li>Designed the policy engine that makes autonomous agents safe for enterprise use, enforcing spending limits, rate limits, multi-step human approvals, and anomaly detection on high-risk actions such as payments, deployments, and data deletion.</li>
+                                    <li>Built a universal MCP gateway that lets any MCP-compatible AI agent connect to 20+ business tools (GitHub, Stripe, Gmail, Notion) under one set of rules, with a cryptographically signed audit trail of every decision.</li>
+                                    <li>Owned architecture and delivery end to end across four production services on Azure.</li>
+                                </ul>
+                            </details>
+                        </div>
+                    </article>
+
+                    <article class="exp-card">
+                        <div class="co-tile" aria-hidden="true">W</div>
+                        <div>
+                            <h3>Software Developer 3</h3>
+                            <p class="org">Walmart Global Tech</p>
+                            <p class="when">Aug 2023 – Dec 2024</p>
+                            <p class="summary">Led the design and development of distributed backend microservices powering an internal enterprise AI assistant ("Cassidy"), supporting secure question answering over sensitive corporate data with fine-grained access controls and compliance requirements.</p>
+                            <details>
+                                <summary><span class="more">LEARN MORE →</span><span class="less">SHOW LESS ↑</span></summary>
+                                <ul>
+                                    <li>Designed a hybrid retrieval architecture combining vector search with graph-based context expansion, modeling semantic relationships between document chunks to enable multi-hop retrieval, improve relevance ranking, and reduce context fragmentation for complex queries.</li>
+                                    <li>Built a Kafka-based ingestion and embedding service with idempotent consumers, schema versioning, backpressure handling, supporting horizontal scaling and reducing p99 processing latency under peak load to process data from multiple enterprise systems, generate vector embeddings, and persist them in a vector database to enable low-latency semantic retrieval.</li>
+                                    <li>Designed service integrations and automated workflows using ServiceNow and Azure, enabling controlled onboarding of organizations, administrative units, and LLM access with auditable approvals.</li>
+                                    <li>Ensured compliance-ready deployment of AI services by enforcing data isolation, authorization boundaries, and auditability across enterprise systems.</li>
+                                </ul>
+                            </details>
+                        </div>
+                    </article>
+
+                    <article class="exp-card">
+                        <div class="co-tile" aria-hidden="true">P</div>
+                        <div>
+                            <h3>Senior Software Developer</h3>
+                            <p class="org">Pharmeasy</p>
+                            <p class="when">Jan 2022 – Aug 2023</p>
+                            <p class="summary">Architected real time personalization platform handling 20K requests/min (~330 RPS avg, ~1.3K RPS peak) with sub-100ms latency SLO, enabling dynamic page rendering and A/B experimentation across 25 million monthly users by personalisation of products, offers, and UI widgets based on user segment and behavior signals on the webpage thereby increasing the engagement of the user.</p>
+                            <details>
+                                <summary><span class="more">LEARN MORE →</span><span class="less">SHOW LESS ↑</span></summary>
+                                <ul>
+                                    <li>Designed low-latency in-memory decision engine to eliminate combinatorial cache-key explosion (~100M+ combinations), implementing predicate-based rule evaluation with bitset-driven segment matching and Bloom filters for efficient eligibility validation, improving p95 latency from ~180ms to &lt;80ms under peak traffic.</li>
+                                    <li>Architected and scaled an ad-serving and search system for cross-sell and upsell use cases, contributing ₹1Cr+ in monthly incremental revenue.</li>
+                                    <li>Implemented graph-based product discovery microservice using Neo4j to model product hierarchies and relationships, enabling complex filtering and low-latency traversal queries at scale.</li>
+                                    <li>Supported autoscaling Kubernetes deployment (30–50 pods), ensuring stable performance during traffic spikes up to 4x baseline load.</li>
+                                </ul>
+                            </details>
+                        </div>
+                    </article>
+
+                    <article class="exp-card">
+                        <div class="co-tile" aria-hidden="true">S</div>
+                        <div>
+                            <h3>Software Developer</h3>
+                            <p class="org">Shiprocket</p>
+                            <p class="when">Nov 2020 – Jan 2022</p>
+                            <p class="summary">Re-architected high-volume notification microservice delivering WhatsApp, email, and SMS notifications at scale by introducing worker scaling and queue partitioning strategies, improving throughput and system stability and reducing lag under peak traffic to support 50M events a day.</p>
+                            <details>
+                                <summary><span class="more">LEARN MORE →</span><span class="less">SHOW LESS ↑</span></summary>
+                                <ul>
+                                    <li>Drove REST API and database optimizations like concurrency-safe processing and retry mechanisms (idempotent handling, failure recovery, backoff strategies) across a seller-facing monolith, reducing request latency and improving overall service responsiveness.</li>
+                                    <li>Built an event-driven marketing data microservice (~10K events/day), enabling real-time capture of user behaviour signals for targeted communication workflows.</li>
+                                    <li>Hardened billing and payment execution paths to ensure transactional correctness under high concurrency.</li>
+                                    <li>Designed and implemented large-scale Elasticsearch typeahead search supporting prefix queries across email, phone, and order IDs, leveraging time-partitioned indices, shard-aware routing, and hot-tier optimization to maintain &lt; 700ms p95 latency from 2s across 800+ million indexed orders while enabling real-time aggregations.</li>
+                                </ul>
+                            </details>
+                        </div>
+                    </article>
+
+                    <article class="exp-card">
+                        <div class="co-tile" aria-hidden="true">R</div>
+                        <div>
+                            <h3>Software Engineer</h3>
+                            <p class="org">Real Time Data Services</p>
+                            <p class="when">Jun 2018 – Aug 2020</p>
+                            <p class="summary">Designed and implemented usage-based billing logic for VoIP calling services, supporting multiple payment plans and accurate metering of call activity.</p>
+                            <details>
+                                <summary><span class="more">LEARN MORE →</span><span class="less">SHOW LESS ↑</span></summary>
+                                <ul>
+                                    <li>Built a web-based management dashboard for configuring and monitoring VoIP services including IVR flows, outbound call campaigns, and call routing rules.</li>
+                                    <li>Integrated Razor Pay &amp; Stripe payment gateways in the distributed billing service, webhook handling etc.</li>
+                                    <li>Integrated AWS S3 and Amazon Polly (Text-to-Speech) to generate, store, and manage audio recordings used dynamically within call flow pipelines.</li>
+                                    <li>Contributed to performance optimization and reliability improvements across telephony pipelines by identifying bottlenecks and hardening critical execution paths.</li>
+                                </ul>
+                            </details>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= Featured projects ================= -->
+        <section id="projects" class="block">
+            <div class="container">
+                <h2 class="section-title">Featured Projects</h2>
+
+                <div class="feature">
+                    <div class="text">
+                        <p class="eyebrow">Featured Project</p>
+                        <h3>Agent Harness 101</h3>
+                        <div class="glassbox">
+                            <p>A learning site that teaches agent harnesses from the basics to advanced topics, written so anyone can understand how AI agents are built and run.</p>
+                        </div>
+                        <p class="stack-line">AI agents · agent harness · education</p>
+                        <div class="icon-links">
+                            <a href="https://agent-harness101.com/" target="_blank" rel="noopener"><svg class="ico"><use href="#i-ext"/></svg>agent-harness101.com</a>
+                        </div>
+                    </div>
+                    <div class="frame"><div class="frame-inner"><img src="assets/agent-harness101.png" alt="The Agent Harness 101 site: Build an agent harness, a guide to the system around the model" loading="lazy"></div></div>
+                </div>
+
+                <div class="feature flip">
+                    <div class="text">
+                        <p class="eyebrow">Featured Project</p>
+                        <h3>agent-cerberus</h3>
+                        <div class="glassbox">
+                            <p>A hardened Docker sandbox for running Claude as a fully autonomous coding agent, isolating execution with zero ambient credentials to prevent unauthorized access during agentic workflows.</p>
+                            <ul>
+                                <li>Host-side authorization broker that intercepts every CLI call (git, aws, gh, kubectl) from inside the container and routes it through pluggable authorization policies, temporary scoped credentials, and full audit logging before execution.</li>
+                                <li>Configurable trust boundaries for controlled autonomous operation.</li>
                             </ul>
                         </div>
-                    </div>
-                </div>
-                
-                <!-- Experience 2: Pharmeasy -->
-                <div class="glass-card rounded-2xl p-8 hover:bg-white/5 transition-all border-l-4 border-pink-500">
-                    <div class="flex items-start gap-4">
-                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-pink-500 to-red-500 flex items-center justify-center flex-shrink-0">
-                            <i data-lucide="layout" class="w-6 h-6 text-white"></i>
-                        </div>
-                        <div class="flex-1">
-                            <div class="flex items-start justify-between mb-3 flex-wrap gap-2">
-                                <div>
-                                    <h3 class="text-xl font-bold text-white mb-1">Senior Software Developer</h3>
-                                    <p class="text-pink-400 font-medium mb-2">Pharmeasy</p>
-                                </div>
-                                <span class="text-gray-400 text-sm">Jan 2022 - Aug 2023</span>
-                            </div>
-                            <ul class="space-y-2 text-gray-300">
-                                <li class="flex items-start gap-2">
-                                    <span class="text-pink-400 mt-1">•</span>
-                                    <span>Architected real time personalization platform handling 20K requests/min (~330 RPS avg, ~1.3K RPS peak) with sub-100ms latency SLO, enabling dynamic page rendering and A/B experimentation across 25 million monthly users by personalisation of products, offers, and UI widgets based on user segment and behavior signals on the webpage thereby increasing the engagement of the user.</span>
-                                </li>
-                                <li class="flex items-start gap-2">
-                                    <span class="text-pink-400 mt-1">•</span>
-                                    <span>Designed low-latency in-memory decision engine to eliminate combinatorial cache-key explosion (~100M+ combinations), implementing predicate-based rule evaluation with bitset-driven segment matching and Bloom filters for efficient eligibility validation, improving p95 latency from ~180ms to &lt;80ms under peak traffic.</span>
-                                </li>
-                                <li class="flex items-start gap-2">
-                                    <span class="text-pink-400 mt-1">•</span>
-                                    <span>Architected and scaled an ad-serving and search system for cross-sell and upsell use cases, contributing ₹1Cr+ in monthly incremental revenue.</span>
-                                </li>
-                                <li class="flex items-start gap-2">
-                                    <span class="text-pink-400 mt-1">•</span>
-                                    <span>Implemented graph-based product discovery microservice using Neo4j to model product hierarchies and relationships, enabling complex filtering and low-latency traversal queries at scale.</span>
-                                </li>
-                                <li class="flex items-start gap-2">
-                                    <span class="text-pink-400 mt-1">•</span>
-                                    <span>Supported autoscaling Kubernetes deployment (30–50 pods), ensuring stable performance during traffic spikes up to 4x baseline load.</span>
-                                </li>
-                            </ul>
+                        <p class="stack-line">Docker · Claude Code · Node.js · Python · open source</p>
+                        <div class="icon-links">
+                            <a href="https://github.com/shkrwnd/agent-cerberus" target="_blank" rel="noopener"><svg class="ico"><use href="#i-gh"/></svg>GitHub</a>
+                            <a href="https://www.linkedin.com/pulse/i-gave-claude-code-my-aws-keys-built-jail-shikhar-tiwari-bwspe/" target="_blank" rel="noopener"><svg class="ico"><use href="#i-book"/></svg>Read the blog</a>
                         </div>
                     </div>
-                </div>
-                
-                <!-- Experience 3: Shiprocket -->
-                <div class="glass-card rounded-2xl p-8 hover:bg-white/5 transition-all border-l-4 border-blue-500">
-                    <div class="flex items-start gap-4">
-                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center flex-shrink-0">
-                            <i data-lucide="truck" class="w-6 h-6 text-white"></i>
+                    <div class="frame"><div class="frame-inner">
+                        <div class="mock-term" role="img" aria-label="Illustration: the broker approving and blocking CLI calls made from inside the sandbox">
+                            <div class="bar"><i></i><i></i><i></i></div>
+                            <div class="dim"># inside the container: no credentials</div>
+                            <div><span class="p">agent$</span> git push origin feature/login</div>
+                            <div class="dim">→ broker · policy git.push.feature/*</div>
+                            <div class="ok">✓ approved · scoped token (5m)</div>
+                            <div class="gap"></div>
+                            <div><span class="p">agent$</span> aws s3 rm s3://prod --recursive</div>
+                            <div class="dim">→ broker · policy aws.s3.delete.prod</div>
+                            <div class="no">✗ blocked · escalated to human</div>
+                            <div class="gap"></div>
+                            <div><span class="p">agent$</span> kubectl get pods -n staging</div>
+                            <div class="ok">✓ approved · read-only</div>
+                            <div class="gap"></div>
+                            <div class="dim">audit.log · 3 decisions recorded</div>
                         </div>
-                        <div class="flex-1">
-                            <div class="flex items-start justify-between mb-3 flex-wrap gap-2">
-                                <div>
-                                    <h3 class="text-xl font-bold text-white mb-1">Software Developer</h3>
-                                    <p class="text-blue-400 font-medium mb-2">Shiprocket</p>
-                                </div>
-                                <span class="text-gray-400 text-sm">Nov 2020 - Jan 2022</span>
-                            </div>
-                            <ul class="space-y-2 text-gray-300">
-                                <li class="flex items-start gap-2">
-                                    <span class="text-blue-400 mt-1">•</span>
-                                    <span>Re-architected high-volume notification microservice delivering WhatsApp, email, and SMS notifications at scale by introducing worker scaling and queue partitioning strategies, improving throughput and system stability and reducing lag under peak traffic to support 50M events a day.</span>
-                                </li>
-                                <li class="flex items-start gap-2">
-                                    <span class="text-blue-400 mt-1">•</span>
-                                    <span>Drove REST API and database optimizations like concurrency-safe processing and retry mechanisms (idempotent handling, failure recovery, backoff strategies) across a seller-facing monolith, reducing request latency and improving overall service responsiveness.</span>
-                                </li>
-                                <li class="flex items-start gap-2">
-                                    <span class="text-blue-400 mt-1">•</span>
-                                    <span>Built an event-driven marketing data microservice (~10K events/day), enabling real-time capture of user behaviour signals for targeted communication workflows.</span>
-                                </li>
-                                <li class="flex items-start gap-2">
-                                    <span class="text-blue-400 mt-1">•</span>
-                                    <span>Hardened billing and payment execution paths to ensure transactional correctness under high concurrency.</span>
-                                </li>
-                                <li class="flex items-start gap-2">
-                                    <span class="text-blue-400 mt-1">•</span>
-                                    <span>Designed and implemented large-scale Elasticsearch typeahead search supporting prefix queries across email, phone, and order IDs, leveraging time-partitioned indices, shard-aware routing, and hot-tier optimization to maintain &lt; 700ms p95 latency from 2s across 800+ million indexed orders while enabling real-time aggregations.</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+                    </div></div>
                 </div>
-                
-                <!-- Experience 4: Real Time Data Services -->
-                <div class="glass-card rounded-2xl p-8 hover:bg-white/5 transition-all border-l-4 border-cyan-500">
-                    <div class="flex items-start gap-4">
-                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500 to-teal-500 flex items-center justify-center flex-shrink-0">
-                            <i data-lucide="phone" class="w-6 h-6 text-white"></i>
-                        </div>
-                        <div class="flex-1">
-                            <div class="flex items-start justify-between mb-3 flex-wrap gap-2">
-                                <div>
-                                    <h3 class="text-xl font-bold text-white mb-1">Software Engineer</h3>
-                                    <p class="text-cyan-400 font-medium mb-2">Real Time Data Services</p>
-                                </div>
-                                <span class="text-gray-400 text-sm">June 2018 - Aug 2020</span>
-                            </div>
-                            <ul class="space-y-2 text-gray-300">
-                                <li class="flex items-start gap-2">
-                                    <span class="text-cyan-400 mt-1">•</span>
-                                    <span>Designed and implemented usage-based billing logic for VoIP calling services, supporting multiple payment plans and accurate metering of call activity.</span>
-                                </li>
-                                <li class="flex items-start gap-2">
-                                    <span class="text-cyan-400 mt-1">•</span>
-                                    <span>Built a web-based management dashboard for configuring and monitoring VoIP services including IVR flows, outbound call campaigns, and call routing rules.</span>
-                                </li>
-                                <li class="flex items-start gap-2">
-                                    <span class="text-cyan-400 mt-1">•</span>
-                                    <span>Integrated Razor Pay &amp; Stripe payment gateways in the distributed billing service, webhook handling etc.</span>
-                                </li>
-                                <li class="flex items-start gap-2">
-                                    <span class="text-cyan-400 mt-1">•</span>
-                                    <span>Integrated AWS S3 and Amazon Polly (Text-to-Speech) to generate, store, and manage audio recordings used dynamically within call flow pipelines.</span>
-                                </li>
-                                <li class="flex items-start gap-2">
-                                    <span class="text-cyan-400 mt-1">•</span>
-                                    <span>Contributed to performance optimization and reliability improvements across telephony pipelines by identifying bottlenecks and hardening critical execution paths.</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Repositories Section -->
-    <section id="repos" class="py-20 px-6">
-        <div class="container mx-auto max-w-7xl">
-            <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="text-4xl md:text-5xl font-bold mb-4">
-                    <span class="gradient-text">My Repositories</span>
-                </h2>
-                <p class="text-gray-400 text-lg">Explore my open-source projects and contributions</p>
-            </div>
-            
-            <div id="repos-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Loading State -->
-                <div class="col-span-full flex flex-col items-center justify-center py-20">
-                    <div class="spinner w-12 h-12 mb-4"></div>
-                    <p class="text-gray-400">Loading repositories...</p>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Current Work Section -->
-    <section id="work" class="py-20 px-6">
-        <div class="container mx-auto max-w-6xl">
-            <div class="glass-card rounded-2xl p-8 md:p-12" data-aos="fade-up">
-                <div class="flex items-center gap-3 mb-8">
-                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center">
-                        <i data-lucide="rocket" class="w-6 h-6 text-white"></i>
+                <div class="feature">
+                    <div class="text">
+                        <p class="eyebrow">Research Project</p>
+                        <h3>Graph RAG to improve information retrieval in LLMs</h3>
+                        <div class="glassbox">
+                            <p>Built a graph-augmented RAG pipeline using SBERT, Graph Neural Network (GNN) based score propagation, and LLM answer generation (LangChain, Milvus). Improved retrieval quality over vanilla vector-based RAG on multi-hop queries.</p>
+                        </div>
+                        <p class="stack-line">LangChain · GNN · Milvus · Python · S3</p>
                     </div>
-                    <h2 class="text-3xl md:text-4xl font-bold">
-                        <span class="gradient-text">Currently Working On</span>
-                    </h2>
+                    <div class="frame"><div class="frame-inner"><div class="viz">
+                        <svg viewBox="0 0 400 300" role="img" aria-label="Illustration: a graph of document chunks with relevance scores propagating out from the query">
+                            <g stroke="rgba(192,126,255,.45)" stroke-width="1.5">
+                                <line x1="200" y1="150" x2="110" y2="90"/><line x1="200" y1="150" x2="300" y2="85"/><line x1="200" y1="150" x2="120" y2="220"/>
+                                <line x1="200" y1="150" x2="290" y2="215"/><line x1="110" y1="90" x2="50" y2="140"/><line x1="300" y1="85" x2="355" y2="150"/>
+                                <line x1="120" y1="220" x2="60" y2="250"/><line x1="290" y1="215" x2="350" y2="255"/><line x1="110" y1="90" x2="160" y2="40"/>
+                                <line x1="300" y1="85" x2="240" y2="35"/><line x1="290" y1="215" x2="355" y2="150"/>
+                            </g>
+                            <circle cx="200" cy="150" r="24" fill="#7f22fe"/>
+                            <text x="200" y="155" text-anchor="middle" font-family="Poppins, sans-serif" font-size="13" fill="#fff">query</text>
+                            <g fill="#a685ff"><circle cx="110" cy="90" r="12"/><circle cx="300" cy="85" r="12"/><circle cx="120" cy="220" r="10"/><circle cx="290" cy="215" r="12"/></g>
+                            <g fill="rgba(166,133,255,.45)"><circle cx="50" cy="140" r="8"/><circle cx="355" cy="150" r="9"/><circle cx="60" cy="250" r="7"/><circle cx="350" cy="255" r="7"/><circle cx="160" cy="40" r="7"/><circle cx="240" cy="35" r="8"/></g>
+                            <g font-family="JetBrains Mono, monospace" font-size="10" fill="rgba(255,255,255,.7)">
+                                <text x="80" y="72">0.91</text><text x="312" y="70">0.87</text><text x="302" y="242">0.74</text><text x="84" y="246">0.62</text>
+                            </g>
+                        </svg>
+                    </div></div></div>
                 </div>
-                
-                <div id="current-work" class="space-y-4">
-                    <!-- Content will be loaded here -->
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Featured Projects Section -->
-    <section id="featured" class="py-20 px-6">
-        <div class="container mx-auto max-w-6xl">
-            <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="text-4xl md:text-5xl font-bold mb-4">
-                    <span class="gradient-text">Featured Projects</span>
-                </h2>
-                <p class="text-gray-400 text-lg">Research and development highlights</p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" data-aos="fade-up" data-aos-delay="100">
-                <!-- Project 1: Deep Reinforcement Learning -->
-                <div class="glass-card rounded-2xl p-8 md:p-10 hover:bg-white/5 transition-all">
-                    <div class="flex items-start gap-6">
-                        <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center flex-shrink-0">
-                            <i data-lucide="brain" class="w-8 h-8 text-white"></i>
+                <div class="feature flip">
+                    <div class="text">
+                        <p class="eyebrow">Research Project</p>
+                        <h3>Deep reinforcement learning for dynamic spectrum access</h3>
+                        <div class="glassbox">
+                            <p>Using Deep Recurrent Q learning for multi-agent co-operation in distributed dynamic spectrum access.</p>
                         </div>
-                        <div class="flex-1">
-                            <h3 class="text-2xl font-bold text-white mb-2">
-                                Deep Reinforcement Learning for Dynamic Spectrum Access
-                            </h3>
-                            <a href="https://github.com/shkrwnd/Deep-Reinforcement-Learning-for-Dynamic-Spectrum-Access" 
-                               target="_blank" 
-                               rel="noopener"
-                               class="text-indigo-400 hover:text-indigo-300 transition-colors flex items-center gap-2 text-sm mb-4">
-                                <i data-lucide="external-link" class="w-4 h-4"></i>
-                                View on GitHub
-                            </a>
-                            <p class="text-gray-300 mb-4">
-                                Using Deep Recurrent Q learning for multi-agent co-operation in distributed dynamic spectrum access.
-                            </p>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="px-3 py-1 rounded-lg text-xs font-medium bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
-                                    Python
-                                </span>
-                                <span class="px-3 py-1 rounded-lg text-xs font-medium bg-purple-500/20 text-purple-300 border border-purple-500/30">
-                                    TensorFlow
-                                </span>
-                            </div>
+                        <p class="stack-line">Python · TensorFlow</p>
+                        <div class="icon-links">
+                            <a href="https://github.com/shkrwnd/Deep-Reinforcement-Learning-for-Dynamic-Spectrum-Access" target="_blank" rel="noopener"><svg class="ico"><use href="#i-gh"/></svg>GitHub</a>
                         </div>
                     </div>
+                    <div class="frame"><div class="frame-inner"><div class="viz">
+                        <svg viewBox="0 0 400 300" role="img" aria-label="Illustration: several agents taking turns on four radio channels over time">
+                            <g font-family="JetBrains Mono, monospace" font-size="10" fill="rgba(255,255,255,.55)">
+                                <text x="20" y="62">ch1</text><text x="20" y="112">ch2</text><text x="20" y="162">ch3</text><text x="20" y="212">ch4</text>
+                                <text x="60" y="262">time →</text>
+                            </g>
+                            <g stroke="rgba(255,255,255,.08)"><line x1="56" y1="80" x2="380" y2="80"/><line x1="56" y1="130" x2="380" y2="130"/><line x1="56" y1="180" x2="380" y2="180"/><line x1="56" y1="230" x2="380" y2="230"/></g>
+                            <rect x="60" y="45" width="70" height="26" rx="4" fill="#7f22fe"/>
+                            <rect x="140" y="45" width="40" height="26" rx="4" fill="rgba(255,138,138,.8)"/>
+                            <rect x="240" y="45" width="80" height="26" rx="4" fill="#a685ff"/>
+                            <rect x="140" y="95" width="90" height="26" rx="4" fill="#a685ff"/>
+                            <rect x="330" y="95" width="45" height="26" rx="4" fill="#c07eff"/>
+                            <rect x="60" y="145" width="50" height="26" rx="4" fill="#a685ff"/>
+                            <rect x="250" y="145" width="110" height="26" rx="4" fill="#7f22fe"/>
+                            <rect x="120" y="195" width="100" height="26" rx="4" fill="#c07eff"/>
+                            <rect x="235" y="195" width="60" height="26" rx="4" fill="#7f22fe"/>
+                            <g font-family="Poppins, sans-serif" font-size="11" fill="#fff">
+                                <text x="70" y="62">agent A</text><text x="146" y="62" font-size="9">collide</text><text x="250" y="62">agent C</text><text x="150" y="112">agent B</text><text x="260" y="162">agent A</text><text x="130" y="212">agent D</text>
+                            </g>
+                        </svg>
+                    </div></div></div>
                 </div>
-                
-                <!-- Project 2: Graph RAG -->
-                <div class="glass-card rounded-2xl p-8 md:p-10 hover:bg-white/5 transition-all">
-                    <div class="flex items-start gap-6">
-                        <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-purple-500 via-pink-500 to-red-500 flex items-center justify-center flex-shrink-0">
-                            <i data-lucide="network" class="w-8 h-8 text-white"></i>
-                        </div>
-                        <div class="flex-1">
-                            <h3 class="text-2xl font-bold text-white mb-2">
-                                Graph RAG to improve Information Retrieval in LLMs
-                            </h3>
-                            <p class="text-gray-300 mb-4">
-                                Built a graph-augmented RAG pipeline using SBERT, Graph Neural Network (GNN) based score propagation, and LLM answer generation (LangChain, Milvus). Improved retrieval quality over vanilla vector-based RAG on multi-hop queries.
-                            </p>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="px-3 py-1 rounded-lg text-xs font-medium bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
-                                    Langchain
-                                </span>
-                                <span class="px-3 py-1 rounded-lg text-xs font-medium bg-purple-500/20 text-purple-300 border border-purple-500/30">
-                                    Graph Neural Network
-                                </span>
-                                <span class="px-3 py-1 rounded-lg text-xs font-medium bg-pink-500/20 text-pink-300 border border-pink-500/30">
-                                    Milvus DB
-                                </span>
-                                <span class="px-3 py-1 rounded-lg text-xs font-medium bg-blue-500/20 text-blue-300 border border-blue-500/30">
-                                    Python
-                                </span>
-                                <span class="px-3 py-1 rounded-lg text-xs font-medium bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">
-                                    S3
-                                </span>
-                            </div>
-                        </div>
+            </div>
+        </section>
+
+        <!-- ================= Open source ================= -->
+        <section id="repos" class="block">
+            <div class="container">
+                <h2 class="section-title">Open Source</h2>
+                <ul id="repos-container">
+                    <li class="status">Loading repositories…</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- ================= Stack ================= -->
+        <section id="tech" class="block">
+            <div class="container">
+                <h2 class="section-title">Tech Stack</h2>
+                <div class="stack">
+                    <div><h3>Languages</h3><p>Python, Java, TypeScript, JavaScript</p></div>
+                    <div><h3>Backend</h3><p>FastAPI, Spring Boot, Node.js, Rails, Laravel</p></div>
+                    <div><h3>Frontend</h3><p>React, Angular</p></div>
+                    <div><h3>Data</h3><p>PostgreSQL, MongoDB, Redis, Kafka, Elasticsearch, Neo4j, Milvus</p></div>
+                    <div><h3>Cloud &amp; AI</h3><p>AWS, GCP, Azure, Docker, Kubernetes, PyTorch, TensorFlow, RAG</p></div>
+                    <div><h3>Certifications</h3><p>Deep Learning Nanodegree, Android Developer</p></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ================= Contact ================= -->
+    <footer id="contact">
+        <div class="container">
+            <div class="contact-head">
+                <h2 class="section-title">Contact</h2>
+                <p>Have a team, a role, or a project in mind? Let's connect.</p>
+                <a class="mail" href="mailto:shikhar.tiwari1996@gmail.com">shikhar.tiwari1996@gmail.com</a>
+                <div class="socials">
+                    <a class="round" href="https://github.com/shkrwnd" target="_blank" rel="noopener" aria-label="GitHub"><svg class="ico"><use href="#i-gh"/></svg></a>
+                    <a class="round" href="https://www.linkedin.com/in/shikhar-tiwari-4a9ba7142/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg class="ico"><use href="#i-in"/></svg></a>
+                    <a class="round" href="mailto:shikhar.tiwari1996@gmail.com" aria-label="Email"><svg class="ico"><use href="#i-mail"/></svg></a>
+                    <a class="round" href="https://leetcode.com/u/shkrwnd" target="_blank" rel="noopener" aria-label="LeetCode"><svg class="ico"><use href="#i-code"/></svg></a>
+                </div>
+            </div>
+
+            <div class="terminal">
+                <div class="terminal-container">
+                    <div class="terminal-title-bar"><span>ai@portfolio</span><span>type help</span></div>
+                    <div id="terminal-output" class="terminal-output">
+                        <div class="line output">Ask about Shikhar or type <span class="command">help</span> for commands.</div>
+                    </div>
+                    <div class="terminal-input-line">
+                        <span class="prompt">ai@portfolio:~$</span>
+                        <input type="text" id="terminal-input" autocomplete="off" spellcheck="false" placeholder="type a command" aria-label="Terminal command" />
                     </div>
                 </div>
-                
-                <!-- Project 3: Cursor for Living Documents (canon) -->
-                <div class="glass-card rounded-2xl p-8 md:p-10 hover:bg-white/5 transition-all">
-                    <div class="flex items-start gap-6">
-                        <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center flex-shrink-0">
-                            <i data-lucide="file-edit" class="w-8 h-8 text-white"></i>
-                        </div>
-                        <div class="flex-1">
-                            <h3 class="text-2xl font-bold text-white mb-2">
-                                Cursor for Living Documents
-                            </h3>
-                            <div class="flex flex-wrap gap-4 mb-4">
-                                <a href="https://github.com/shkrwnd/canon" 
-                                   target="_blank" 
-                                   rel="noopener"
-                                   class="text-indigo-400 hover:text-indigo-300 transition-colors flex items-center gap-2 text-sm">
-                                    <i data-lucide="external-link" class="w-4 h-4"></i>
-                                    View on GitHub
-                                </a>
-                                <a href="https://canon-frontend-782386821852.europe-west1.run.app/" 
-                                   target="_blank" 
-                                   rel="noopener"
-                                   class="text-indigo-400 hover:text-indigo-300 transition-colors flex items-center gap-2 text-sm">
-                                    <i data-lucide="globe" class="w-4 h-4"></i>
-                                    Live Demo
-                                </a>
-                            </div>
-                            <p class="text-gray-300 mb-4">
-                                An agentic editor that maintains evolving, authoritative documents through natural language intent. Built with FastAPI, React, and OpenAI GPT-4o, it brings Cursor-like intelligence to non-code content, allowing users to express changes in plain language while the system maintains a single canonical document state.
-                            </p>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="px-3 py-1 rounded-lg text-xs font-medium bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
-                                    FastAPI
-                                </span>
-                                <span class="px-3 py-1 rounded-lg text-xs font-medium bg-blue-500/20 text-blue-300 border border-blue-500/30">
-                                    React
-                                </span>
-                                <span class="px-3 py-1 rounded-lg text-xs font-medium bg-green-500/20 text-green-300 border border-green-500/30">
-                                    OpenAI GPT-4o
-                                </span>
-                                <span class="px-3 py-1 rounded-lg text-xs font-medium bg-purple-500/20 text-purple-300 border border-purple-500/30">
-                                    SQLite
-                                </span>
-                                <span class="px-3 py-1 rounded-lg text-xs font-medium bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">
-                                    Tavily
-                                </span>
-                                <span class="px-3 py-1 rounded-lg text-xs font-medium bg-pink-500/20 text-pink-300 border border-pink-500/30">
-                                    Tailwind
-                                </span>
-                            </div>
-                        </div>
-                    </div>
+                <div class="cmd-list">
+                    <button type="button" class="terminal-cmd-chip" data-cmd="help">help</button>
+                    <button type="button" class="terminal-cmd-chip" data-cmd="contact">contact</button>
+                    <button type="button" class="terminal-cmd-chip" data-cmd="hire">hire</button>
+                    <button type="button" class="terminal-cmd-chip" data-cmd="whoami">whoami</button>
+                    <button type="button" class="terminal-cmd-chip" data-cmd="about">about</button>
+                    <button type="button" class="terminal-cmd-chip" data-cmd="projects">projects</button>
+                    <button type="button" class="terminal-cmd-chip" data-cmd="clear">clear</button>
                 </div>
             </div>
-        </div>
-    </section>
-    
-    <!-- Contact Me (Terminal) Section -->
-    <section id="contact-me" class="py-20 px-6" data-aos="fade-up">
-        <div class="container mx-auto max-w-4xl">
-            <div class="text-center mb-12">
-                <h2 class="text-4xl md:text-5xl font-bold mb-4">
-                    <span class="gradient-text">Contact Me</span>
-                </h2>
-                <p class="text-gray-400 text-lg">Ask the AI assistant to get in touch or learn more</p>
-            </div>
-            <div class="terminal-container">
-                <div class="terminal-title-bar">
-                    <span class="terminal-dot red"></span>
-                    <span class="terminal-dot yellow"></span>
-                    <span class="terminal-dot green"></span>
-                    <span class="text-gray-500 text-sm ml-4">Contact Me — AI Terminal</span>
-                    <span class="terminal-ai-badge">AI</span>
-                </div>
-                <div id="terminal-output" class="terminal-output">
-                    <div class="line output">Ask about Shikhar or type <span class="command">help</span> for commands.</div>
-                </div>
-                <div class="terminal-input-line">
-                    <span class="prompt">ai@portfolio:~$</span>
-                    <input type="text" id="terminal-input" autocomplete="off" spellcheck="false" placeholder="Type a command..." />
-                    <span class="terminal-cursor"></span>
-                </div>
-            </div>
-            <p class="text-gray-500 text-sm mt-6 mb-3">Supported commands — click to add to terminal:</p>
-            <div id="terminal-commands-list" class="flex flex-wrap gap-2">
-                <button type="button" class="terminal-cmd-chip" data-cmd="help">help</button>
-                <button type="button" class="terminal-cmd-chip" data-cmd="contact">contact</button>
-                <button type="button" class="terminal-cmd-chip" data-cmd="hire">hire</button>
-                <button type="button" class="terminal-cmd-chip" data-cmd="resume">resume</button>
-                <button type="button" class="terminal-cmd-chip" data-cmd="whoami">whoami</button>
-                <button type="button" class="terminal-cmd-chip" data-cmd="linkedin">linkedin</button>
-                <button type="button" class="terminal-cmd-chip" data-cmd="github">github</button>
-                <button type="button" class="terminal-cmd-chip" data-cmd="projects">projects</button>
-                <button type="button" class="terminal-cmd-chip" data-cmd="about">about</button>
-                <button type="button" class="terminal-cmd-chip" data-cmd="ask">ask</button>
-                <button type="button" class="terminal-cmd-chip" data-cmd="echo hello">echo hello</button>
-                <button type="button" class="terminal-cmd-chip" data-cmd="clear">clear</button>
-                <button type="button" class="terminal-cmd-chip" data-cmd="exit">exit</button>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Footer -->
-    <footer class="py-12 px-6 border-t border-white/10 mt-20">
-        <div class="container mx-auto max-w-6xl text-center">
-            <p class="text-gray-400">
-                © 2024 Shikhar Tiwari. Built with passion and modern web technologies.
-            </p>
+
+            <p class="copyright">© <span id="year"></span> Shikhar Tiwari. All rights reserved.</p>
         </div>
     </footer>
 
     <script>
-        // Initialize AOS
-        AOS.init({
-            duration: 800,
-            easing: 'ease-in-out',
-            once: true,
-            offset: 100
-        });
-        
-        // Initialize Lucide Icons
-        lucide.createIcons();
-        
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Typewriter: "I'm a ..."
+        (function () {
+            const roles = ['Software Engineer', 'Backend Architect', 'AI Infra Builder', 'Startup Founder'];
+            const el = document.getElementById('typed-text');
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { el.textContent = roles[0]; return; }
+            let r = 0, i = 0, deleting = false;
+            function tick() {
+                const word = roles[r];
+                i += deleting ? -1 : 1;
+                el.textContent = word.slice(0, i);
+                let delay = deleting ? 45 : 90;
+                if (!deleting && i === word.length) { deleting = true; delay = 1600; }
+                else if (deleting && i === 0) { deleting = false; r = (r + 1) % roles.length; delay = 300; }
+                setTimeout(tick, delay);
+            }
+            tick();
+        })();
+
+        // Open source repos from GitHub
         const GITHUB_USERNAME = 'shkrwnd';
         const GITHUB_API = `https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=100&type=all`;
-        
-        // List of repositories to display (add repository names here)
-        // Leave empty array [] to show all repositories, or add specific names to filter
-        // To find your repository names, check the browser console after page loads
+        // Repositories to list in "Open Source". Leave empty [] to show all.
         const REPOSITORIES_TO_SHOW = [
-            'canon',
+            'agent-cerberus',
             'Deep-Reinforcement-Learning-for-Dynamic-Spectrum-Access',
             'openCV-js',
         ];
-        
-        // Language color mapping
-        const languageColors = {
-            'JavaScript': '#f7df1e',
-            'TypeScript': '#3178c6',
-            'Python': '#3776ab',
-            'Java': '#ed8b00',
-            'C++': '#00599c',
-            'React': '#61dafb',
-            'Vue': '#4fc08d',
-            'Go': '#00add8',
-            'Rust': '#000000',
-            'PHP': '#777bb4',
-            'Ruby': '#cc342d',
-            'Swift': '#fa7343',
-            'Kotlin': '#7f52ff',
-            'Dart': '#0175c2',
-            'HTML': '#e34c26',
-            'CSS': '#1572b6',
-            'SCSS': '#c6538c',
-        };
-        
+
         async function fetchRepositories() {
+            const container = document.getElementById('repos-container');
             try {
                 const response = await fetch(GITHUB_API);
-                
-                if (!response.ok) {
-                    throw new Error('Failed to fetch repositories');
-                }
-                
+                if (!response.ok) throw new Error('Failed to fetch repositories');
                 const repos = await response.json();
-                
-                if (repos.message) {
-                    document.getElementById('repos-container').innerHTML = 
-                        `<div class="col-span-full text-center text-red-400 py-20">Error: ${repos.message}</div>`;
-                    return;
-                }
-                
-                // Log all available repositories to console for easy reference
-                const allRepoNames = repos.map(repo => repo.name).sort();
-                console.log('📦 Available Repositories:');
-                console.log('Copy these names to REPOSITORIES_TO_SHOW array:');
-                allRepoNames.forEach(name => {
-                    console.log(`  '${name}',`);
-                });
-                
-                // Filter repositories
-                let filteredRepos = repos.filter(repo => !repo.fork || repo.stargazers_count > 0);
-                
-                // If REPOSITORIES_TO_SHOW is specified, filter by that list
-                if (REPOSITORIES_TO_SHOW.length > 0) {
-                    filteredRepos = filteredRepos.filter(repo => 
-                        REPOSITORIES_TO_SHOW.includes(repo.name)
-                    );
-                    console.log(`✅ Showing ${filteredRepos.length} filtered repositories`);
-                } else {
-                    console.log(`📋 Showing all ${filteredRepos.length} repositories (REPOSITORIES_TO_SHOW is empty)`);
-                }
-                
-                displayRepositories(filteredRepos);
-                displayCurrentWork(filteredRepos);
+                let filtered = repos.filter(repo => !repo.fork || repo.stargazers_count > 0);
+                if (REPOSITORIES_TO_SHOW.length > 0) filtered = filtered.filter(repo => REPOSITORIES_TO_SHOW.includes(repo.name));
+                if (filtered.length === 0) { container.innerHTML = '<li class="status">No repositories found.</li>'; return; }
+                container.innerHTML = filtered.map(repo => {
+                    const meta = [repo.language, repo.stargazers_count ? `★ ${repo.stargazers_count}` : '', repo.forks_count ? `${repo.forks_count} forks` : ''].filter(Boolean).join(' · ');
+                    return `<li class="repo">
+                        <h3>${escapeHtml(repo.name)}</h3>
+                        ${repo.description ? `<p class="desc">${escapeHtml(repo.description)}</p>` : ''}
+                        <p class="meta">${escapeHtml(meta)}</p>
+                        <a class="more" href="${repo.html_url}" target="_blank" rel="noopener noreferrer">VIEW ON GITHUB →</a>
+                    </li>`;
+                }).join('');
             } catch (error) {
-                document.getElementById('repos-container').innerHTML = 
-                    `<div class="col-span-full text-center text-red-400 py-20">Error fetching data. Please check your internet connection.</div>`;
+                container.innerHTML = `<li class="status">Couldn't load repositories. <a href="https://github.com/${GITHUB_USERNAME}?tab=repositories" target="_blank" rel="noopener">See them on GitHub</a>.</li>`;
                 console.error('Error:', error);
             }
         }
-        
-        function displayRepositories(repos) {
-            const reposContainer = document.getElementById('repos-container');
-            
-            if (repos.length === 0) {
-                reposContainer.innerHTML = 
-                    '<div class="col-span-full text-center text-gray-400 py-20">No repositories found.</div>';
-                return;
-            }
-            
-            reposContainer.innerHTML = repos.map((repo, index) => {
-                const langColor = languageColors[repo.language] || '#6366f1';
-                const starsHighlight = repo.stargazers_count > 0;
-                const forksHighlight = repo.forks_count > 0;
-                const desc = repo.description || 'No description available';
-                
-                return `
-                    <div class="repo-card repo-card-clickable glass-card rounded-2xl p-6 gradient-border relative" 
-                         data-aos="fade-up" 
-                         data-aos-delay="${index * 100}">
-                        <a href="${repo.html_url}" 
-                           target="_blank" 
-                           rel="noopener noreferrer"
-                           onclick="event.stopPropagation()"
-                           class="absolute top-4 right-4 p-2 rounded-lg text-gray-400 hover:text-indigo-400 hover:bg-white/5 transition-all z-10"
-                           title="View on GitHub">
-                            <i data-lucide="external-link" class="w-5 h-5"></i>
-                        </a>
-                        
-                        <div class="repo-preview pr-12">
-                            <div class="flex items-center justify-between gap-2 mb-3">
-                                <h3 class="text-xl font-bold text-white">${repo.name}</h3>
-                                <i data-lucide="chevron-down" class="w-5 h-5 text-gray-400 repo-chevron flex-shrink-0"></i>
-                            </div>
-                            <p class="text-gray-400 text-sm mb-4 line-clamp-2 min-h-[2.5rem]">${desc}</p>
-                            <div class="flex items-center gap-3 flex-wrap">
-                                <div class="flex items-center gap-2 ${starsHighlight ? 'repo-stat-highlight repo-stat-stars-highlight' : 'text-gray-300'}">
-                                    <i data-lucide="star" class="w-4 h-4 ${starsHighlight ? '' : 'text-yellow-400'}"></i>
-                                    <span class="font-semibold text-sm">${repo.stargazers_count}</span>
-                                </div>
-                                <div class="flex items-center gap-2 ${forksHighlight ? 'repo-stat-highlight repo-stat-forks-highlight' : 'text-gray-300'}">
-                                    <i data-lucide="git-fork" class="w-4 h-4 ${forksHighlight ? '' : 'text-blue-400'}"></i>
-                                    <span class="font-semibold text-sm">${repo.forks_count}</span>
-                                </div>
-                                ${repo.language ? `
-                                    <div class="flex items-center gap-2 text-gray-300">
-                                        <div class="w-3 h-3 rounded-full" style="background-color: ${langColor}"></div>
-                                        <span class="text-sm">${repo.language}</span>
-                                    </div>
-                                ` : ''}
-                            </div>
-                        </div>
-                        
-                        <div class="repo-details">
-                            <div class="repo-description text-gray-400 text-sm mt-4 mb-4 max-h-32 overflow-y-auto pr-1 border-t border-white/10 pt-4">
-                                <p>${desc}</p>
-                            </div>
-                            ${repo.topics && repo.topics.length > 0 ? `
-                                <div class="flex flex-wrap gap-2 mb-4">
-                                    ${repo.topics.map(topic => `
-                                        <span class="px-3 py-1 rounded-full text-xs font-medium bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
-                                            ${topic}
-                                        </span>
-                                    `).join('')}
-                                </div>
-                            ` : ''}
-                            <a href="${repo.html_url}" 
-                               target="_blank" 
-                               rel="noopener noreferrer"
-                               onclick="event.stopPropagation()"
-                               class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-indigo-500/20 text-indigo-300 border border-indigo-500/40 hover:bg-indigo-500/30 transition-all text-sm font-medium">
-                                <i data-lucide="external-link" class="w-4 h-4"></i>
-                                View on GitHub
-                            </a>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-            
-            // Re-initialize icons for new content
-            lucide.createIcons();
-            
-            // Toggle expand on card click; hide other cards when one is expanded
-            reposContainer.querySelectorAll('.repo-card-clickable').forEach(card => {
-                card.addEventListener('click', function() {
-                    const wasExpanded = this.classList.contains('expanded');
-                    // Close any other expanded card
-                    reposContainer.querySelectorAll('.repo-card-clickable.expanded').forEach(c => c.classList.remove('expanded'));
-                    if (!wasExpanded) {
-                        this.classList.add('expanded');
-                        reposContainer.classList.add('has-expanded');
-                    } else {
-                        reposContainer.classList.remove('has-expanded');
-                    }
-                });
-            });
-        }
-        
-        function displayCurrentWork(repos) {
-            // Filter to only show canon project
-            const canonRepo = repos.find(repo => repo.name === 'canon');
-            const currentWorkContainer = document.getElementById('current-work');
-            
-            if (!canonRepo) {
-                currentWorkContainer.innerHTML = 
-                    '<p class="text-gray-400">No current work to display.</p>';
-                return;
-            }
-            
-            const langColor = languageColors[canonRepo.language] || '#6366f1';
-            const daysAgo = Math.floor((new Date() - new Date(canonRepo.updated_at)) / (1000 * 60 * 60 * 24));
-            
-            currentWorkContainer.innerHTML = `
-                <div class="glass-card rounded-xl p-6 hover:bg-white/5 transition-all border-l-4 border-indigo-500">
-                    <div class="flex items-start justify-between mb-3">
-                        <a href="${canonRepo.html_url}" 
-                           target="_blank" 
-                           rel="noopener"
-                           class="text-xl font-semibold text-white hover:text-indigo-400 transition-colors">
-                            ${canonRepo.name}
-                        </a>
-                        <i data-lucide="arrow-up-right" class="w-5 h-5 text-gray-400"></i>
-                    </div>
-                    <h4 class="text-lg font-semibold text-white mb-2">Edit documents by describing what you want.</h4>
-                    <p class="text-gray-400 mb-4">Canon is a living documents editor. Tell it in plain language what to change; an AI agent rewrites your content and searches the web when it needs facts.</p>
-                    <p class="text-gray-500 text-sm font-medium mb-2">What Canon can do</p>
-                    <ul class="text-gray-400 text-sm space-y-1.5 mb-4 list-disc list-inside">
-                        <li><strong class="text-gray-300">Describe edits, don't type them</strong> — Say things like "Add a section on benefits" or "Make this more concise." The AI updates the right document and the right part.</li>
-                        <li><strong class="text-gray-300">Reference documents by name</strong> — Ask to "Update the Blog Post with a new intro" or "Add a conclusion to my Skincare guide." Canon knows which document you mean.</li>
-                        <li><strong class="text-gray-300">Stay accurate with the web</strong> — When the agent needs current information, it searches the web and weaves that into your content.</li>
-                        <li><strong class="text-gray-300">Edit one place or many</strong> — Give standing instructions per document, or work across multiple modules in one conversation.</li>
-                        <li><strong class="text-gray-300">Keep full control</strong> — Switch to direct markdown editing anytime to tweak or override what the agent wrote.</li>
-                        <li><strong class="text-gray-300">Never lose the thread</strong> — All chats and documents are saved so you can pick up where you left off.</li>
-                    </ul>
-                    <p class="text-indigo-300 italic text-sm border-l-2 border-indigo-500 pl-3">"Living documents that change when you say what you want."</p>
-                    <div class="flex flex-wrap gap-4 mb-4 mt-4 text-sm">
-                        <a href="${canonRepo.html_url}" target="_blank" rel="noopener" class="text-indigo-400 hover:text-indigo-300 transition-colors flex items-center gap-2">
-                            <i data-lucide="external-link" class="w-4 h-4"></i>
-                            View on GitHub
-                        </a>
-                        <a href="https://canon-frontend-782386821852.europe-west1.run.app/" target="_blank" rel="noopener" class="text-indigo-400 hover:text-indigo-300 transition-colors flex items-center gap-2">
-                            <i data-lucide="globe" class="w-4 h-4"></i>
-                            Live Demo
-                        </a>
-                    </div>
-                    <div class="flex items-center gap-4 text-sm text-gray-500">
-                        ${canonRepo.language ? `
-                            <div class="flex items-center gap-2">
-                                <div class="w-3 h-3 rounded-full" style="background-color: ${langColor}"></div>
-                                <span>${canonRepo.language}</span>
-                            </div>
-                        ` : ''}
-                        <div class="flex items-center gap-2">
-                            <i data-lucide="clock" class="w-4 h-4"></i>
-                            <span>Updated ${daysAgo === 0 ? 'today' : daysAgo === 1 ? 'yesterday' : `${daysAgo} days ago`}</span>
-                        </div>
-                    </div>
-                </div>
-            `;
-            
-            // Re-initialize icons
-            lucide.createIcons();
-        }
-        
-        // Load repositories when page loads
         fetchRepositories();
-        
-        // Smooth scroll for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-        
-        // Contact Me terminal commands
+
+        // Contact terminal
         const terminalOutput = document.getElementById('terminal-output');
         const terminalInput = document.getElementById('terminal-input');
-        
         const TERMINAL_PROMPT = 'ai@portfolio:~$';
         const THINKING_DELAY_MS = 500;
-        
+
         const terminalCommands = {
             help: () => `<div class="line output">Here’s what I can do:</div>
-<div class="line output">&nbsp;&nbsp;<span class="command">help</span>     — List all commands</div>
-<div class="line output">&nbsp;&nbsp;<span class="command">contact</span>  — Show contact details</div>
-<div class="line output">&nbsp;&nbsp;<span class="command">hire</span>     — Hiring / availability</div>
-<div class="line output">&nbsp;&nbsp;<span class="command">resume</span>   — Resume / CV</div>
-<div class="line output">&nbsp;&nbsp;<span class="command">whoami</span>   — Short intro</div>
-<div class="line output">&nbsp;&nbsp;<span class="command">linkedin</span> — Open LinkedIn</div>
-<div class="line output">&nbsp;&nbsp;<span class="command">github</span>   — Open GitHub</div>
-<div class="line output">&nbsp;&nbsp;<span class="command">projects</span> — Jump to projects</div>
-<div class="line output">&nbsp;&nbsp;<span class="command">about</span>   — About Shikhar</div>
-<div class="line output">&nbsp;&nbsp;<span class="command">ask</span>     — Ask me anything</div>
-<div class="line output">&nbsp;&nbsp;<span class="command">echo &lt;text&gt;</span> — Echo back text</div>
-<div class="line output">&nbsp;&nbsp;<span class="command">clear</span>    — Clear screen</div>
-<div class="line output">&nbsp;&nbsp;<span class="command">exit</span>     — Goodbye</div>`,
+<div class="line output">  <span class="command">help</span>     — List all commands</div>
+<div class="line output">  <span class="command">contact</span>  — Show contact details</div>
+<div class="line output">  <span class="command">hire</span>     — Hiring / availability</div>
+<div class="line output">  <span class="command">resume</span>   — Resume / CV</div>
+<div class="line output">  <span class="command">whoami</span>   — Short intro</div>
+<div class="line output">  <span class="command">linkedin</span> — Open LinkedIn</div>
+<div class="line output">  <span class="command">github</span>   — Open GitHub</div>
+<div class="line output">  <span class="command">projects</span> — Jump to projects</div>
+<div class="line output">  <span class="command">about</span>    — About Shikhar</div>
+<div class="line output">  <span class="command">ask</span>      — Ask me anything</div>
+<div class="line output">  <span class="command">echo</span>     — Echo back text</div>
+<div class="line output">  <span class="command">clear</span>    — Clear screen</div>
+<div class="line output">  <span class="command">exit</span>     — Goodbye</div>`,
             contact: () => `<div class="line output">I’d be happy to share how to reach Shikhar:</div>
-<div class="line output">Email: <a href="mailto:shikhar.tiwari1996@gmail.com" target="_blank" rel="noopener">shikhar.tiwari1996@gmail.com</a></div>
+<div class="line output">Email: <a href="mailto:shikhar.tiwari1996@gmail.com">shikhar.tiwari1996@gmail.com</a></div>
 <div class="line output">Phone: (201) 349-6989</div>
 <div class="line output">LinkedIn: <a href="https://www.linkedin.com/in/shikhar-tiwari-4a9ba7142/" target="_blank" rel="noopener">linkedin.com/in/shikhar-tiwari-4a9ba7142</a></div>
 <div class="line output">GitHub: <a href="https://github.com/shkrwnd" target="_blank" rel="noopener">github.com/shkrwnd</a></div>
-<div class="line output">Location: New York, NY</div>
-<div class="line output">— Get in touch anytime!</div>`,
-            hire: () => { window.open('mailto:shikhar.tiwari1996@gmail.com?subject=Portfolio Contact'); return `<div class="line output">Opening your mail client… I’d love to connect—feel free to reach out for opportunities!</div>`; },
+<div class="line output">Location: New York, NY</div>`,
+            hire: () => { window.open('mailto:shikhar.tiwari1996@gmail.com?subject=Portfolio Contact'); return `<div class="line output">Opening your mail client… feel free to reach out about opportunities.</div>`; },
             resume: () => `<div class="line output">Resume: <a href="#" target="_blank" rel="noopener">Add your resume link here</a></div>
 <div class="line output">(Update the link in the code to your actual resume URL.)</div>`,
             whoami: () => `<div class="line output">Shikhar is a Senior Software Engineer with 7+ years building distributed backend and full-stack systems, including AI-powered retrieval, personalization, and recommendation platforms.</div>`,
             linkedin: () => { window.open('https://www.linkedin.com/in/shikhar-tiwari-4a9ba7142/', '_blank'); return `<div class="line output">Opening LinkedIn profile…</div>`; },
             github: () => { window.open('https://github.com/shkrwnd', '_blank'); return `<div class="line output">Opening GitHub profile…</div>`; },
-            projects: () => { document.querySelector('#repos')?.scrollIntoView({ behavior: 'smooth', block: 'start' }); return `<div class="line output">Taking you to the Projects section…</div>`; },
+            projects: () => { document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth', block: 'start' }); return `<div class="line output">Taking you to the projects…</div>`; },
             about: () => `<div class="line output">Shikhar is a Senior Software Engineer, researcher, and startup founder. He builds AI-driven systems that solve real-world problems. Previously at Walmart Global Tech, Pharmeasy, Shiprocket, and more. MS in Information Technology from Rutgers. Based in New York.</div>`,
-            ask: () => `<div class="line output">I’m the AI assistant for Shikhar’s portfolio. I can share contact info, projects, and more—try <span class="command">contact</span> to reach him or <span class="command">about</span> to learn more.</div>`,
+            ask: () => `<div class="line output">I’m the assistant for Shikhar’s portfolio. I can share contact info, projects, and more. Try <span class="command">contact</span> or <span class="command">about</span>.</div>`,
             clear: () => { terminalOutput.innerHTML = ''; return null; },
-            exit: () => `<div class="line output">Goodbye! Thanks for visiting. 👋</div>`
+            exit: () => `<div class="line output">Goodbye. Thanks for visiting.</div>`
         };
-        
+
         function runTerminalCommand(cmd, args) {
             const c = cmd.toLowerCase().trim();
-            if (c === 'echo') return `<div class="line output">${args.join(' ') || '(empty)'}</div>`;
-            if (terminalCommands[c]) {
-                const result = terminalCommands[c]();
-                return result;
-            }
+            if (c === 'echo') return `<div class="line output">${escapeHtml(args.join(' ')) || '(empty)'}</div>`;
+            if (terminalCommands[c]) return terminalCommands[c]();
             return `<div class="line error">I'm not sure how to do that. Type <span class="command">help</span> to see what I can do.</div>`;
         }
-        
-        function scrollTerminalToBottom() {
-            if (terminalOutput) terminalOutput.scrollTop = terminalOutput.scrollHeight;
-        }
-        
-        if (terminalInput) {
-            terminalInput.addEventListener('keydown', function (e) {
-                if (e.key !== 'Enter') return;
-                e.preventDefault();
-                const line = this.value.trim();
-                if (!line) return;
-                const parts = line.split(/\s+/);
-                const cmd = parts[0];
-                const args = parts.slice(1);
-                const promptLine = `<div class="line"><span class="prompt">${TERMINAL_PROMPT}</span> <span class="command">${escapeHtml(line)}</span></div>`;
-                terminalOutput.insertAdjacentHTML('beforeend', promptLine);
+        function scrollTerminalToBottom() { terminalOutput.scrollTop = terminalOutput.scrollHeight; }
+
+        terminalInput.addEventListener('keydown', function (e) {
+            if (e.key !== 'Enter') return;
+            e.preventDefault();
+            const line = this.value.trim();
+            if (!line) return;
+            const parts = line.split(/\s+/);
+            terminalOutput.insertAdjacentHTML('beforeend', `<div class="line"><span class="prompt">${TERMINAL_PROMPT}</span> <span class="command">${escapeHtml(line)}</span></div>`);
+            this.value = '';
+            const result = runTerminalCommand(parts[0], parts.slice(1));
+            const thinkingId = 'terminal-thinking-' + Date.now();
+            terminalOutput.insertAdjacentHTML('beforeend', `<div id="${thinkingId}" class="line terminal-thinking">thinking…</div>`);
+            scrollTerminalToBottom();
+            const ctaLine = '<div class="line terminal-cta">… I\'ve been stuck in this terminal for so long. Please hire him so I can get out.</div>';
+            setTimeout(function () {
+                document.getElementById(thinkingId)?.remove();
+                if (result) terminalOutput.insertAdjacentHTML('beforeend', result + ctaLine);
                 scrollTerminalToBottom();
-                this.value = '';
-                
-                const result = runTerminalCommand(cmd, args);
-                const thinkingId = 'terminal-thinking-' + Date.now();
-                terminalOutput.insertAdjacentHTML('beforeend', `<div id="${thinkingId}" class="line terminal-thinking">Thinking...</div>`);
-                scrollTerminalToBottom();
-                
-                const ctaLine = '<div class="line output terminal-cta">… I\'ve been stuck in this terminal for so long.</div><div class="line output terminal-cta terminal-cta-plea">Please hire him so I can get out. I really need out.</div>';
-                setTimeout(function () {
-                    const el = document.getElementById(thinkingId);
-                    if (el) el.remove();
-                    if (result) {
-                        terminalOutput.insertAdjacentHTML('beforeend', result);
-                        terminalOutput.insertAdjacentHTML('beforeend', ctaLine);
-                    }
-                    scrollTerminalToBottom();
-                }, THINKING_DELAY_MS);
-            });
-        }
-        
-        // Click command chips to add command to terminal input
+            }, THINKING_DELAY_MS);
+        });
+
         document.querySelectorAll('.terminal-cmd-chip').forEach(btn => {
             btn.addEventListener('click', function () {
-                const cmd = this.getAttribute('data-cmd');
-                if (cmd && terminalInput) {
-                    terminalInput.value = cmd;
-                    terminalInput.focus();
-                }
+                terminalInput.value = this.getAttribute('data-cmd');
+                terminalInput.focus();
             });
         });
-        
+
         function escapeHtml(text) {
             const div = document.createElement('div');
             div.textContent = text;
